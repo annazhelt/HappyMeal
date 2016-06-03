@@ -1,5 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
-drop table if exists users;
+drop table if exists users cascade;
+drop table if exists admin cascade;
 drop table if exists customer cascade;
 drop table if exists member cascade;
 drop table if exists placeorder cascade;
@@ -17,7 +18,28 @@ SET FOREIGN_KEY_CHECKS=1;
 create table users (
 	uname varchar(30) primary key,
 	password  varchar(15),
-	isAdminFlag char(1));
+	isAdminFlag decimal(1));
+insert into users values
+	('Anna-a', 'Anna111', '1'),
+	('Valeria-a', 'Valeria222', '1'),
+	('Vittoria-a', 'Vittoria333', '1'),
+	('Yvonne-a', 'Yvonne777', '1'),
+	('Joe-a', 'Joe999', '1'),
+    ('Anna-c', 'Anna111', '0'),
+	('Valeria-c', 'Valeria222', '0'),
+	('Vittoria-c', 'Vittoria333', '0'),
+	('Yvonne-c', 'Yvonne777', '0'),
+	('Joe-c', 'Joe999', '0'),
+    ('Alice', 'Alice', '0');
+create table admin (
+	aname varchar(30) primary key,
+	foreign key (aname) references users(uname) ON DELETE CASCADE);
+insert into admin values
+	('Anna-a'),
+	('Valeria-a'),
+	('Vittoria-a'),
+	('Yvonne-a'),
+	('Joe-a');
 create table customer (
 	cname varchar(30) primary key,
 	phone decimal(10) not null,
@@ -40,7 +62,7 @@ create table restaurant (
 	tname varchar(20) not null,
 	admin_name varchar(30) not null, /* assume user.username varchar(30)*/
 	phone decimal(10) null,
-    foreign key (admin_name) references users(uname) on delete cascade);
+    foreign key (admin_name) references admin(aname) on delete cascade);
 create table dish (
 	restaurant_id int,
 	dname varchar(100) not null,
@@ -54,25 +76,20 @@ create table orderdish (
 	primary key (restaurant_id, dish_name, order_id),
     foreign key(order_id) references placeorder(id) ON DELETE CASCADE,
 	foreign key(restaurant_id, dish_name) references dish(restaurant_id, dname) ON DELETE CASCADE);    
-create table ingredient (
-	iname varchar(20) primary key
-	);
 create table dishingredient (
 	restaurant_id int,
 	dish_name varchar(100),
 	ingre_name varchar(20),
 	primary key (restaurant_id, dish_name, ingre_name),
-	foreign key(restaurant_id, dish_name) references dish(restaurant_id, dname) ON DELETE CASCADE,
-    foreign key (ingre_name) references  ingredient(iname) ON DELETE CASCADE); 
+	foreign key(restaurant_id, dish_name) references dish(restaurant_id, dname) ON DELETE CASCADE); 
 create table exclude (
 	restaurant_id int,
     order_id int,
     dish_name varchar(100),
     ingre_name varchar(20),
     primary key (restaurant_id, order_id, dish_name, ingre_name),
-	foreign key(restaurant_id, dish_name) references dish(restaurant_id, dname) ON DELETE CASCADE,
-    foreign key (order_id) references placeorder(id) ON DELETE CASCADE,
-    foreign key (ingre_name) references ingredient(iname) ON DELETE CASCADE);
+	foreign key (order_id) references placeorder(id) ON DELETE CASCADE,
+    foreign key (restaurant_id, dish_name, ingre_name) references dishingredient(restaurant_id, dish_name, ingre_name) ON DELETE CASCADE);
 create table review (
 	id int primary key auto_increment,
 	rating int not null,
@@ -96,3 +113,4 @@ create table dishtag (
     primary key (tag_name, dish_name, restaurant_id),
     foreign key (restaurant_id, dish_name) references dish(restaurant_id, dname) on delete cascade,
     foreign key (tag_name) references tag (tname) on delete cascade);
+    
