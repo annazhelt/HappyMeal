@@ -1,4 +1,4 @@
-mport java.math.BigDecimal;
+import java.math.BigDecimal;
 import java.sql.*;
 
 //code taken heavily from http://www.tutorialspoint.com/jdbc/jdbc-sample-code.htm

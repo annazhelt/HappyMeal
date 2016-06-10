@@ -1,4 +1,4 @@
-package happymeal.entity;
+package src.happymeal.entity;
 
 public class Dish {
     private int restaurantID;

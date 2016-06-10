@@ -1,6 +1,6 @@
-package happymeal.db;
+package src.happymeal.db;
 
-import happymeal.connection.ConnectionUtility;
+import src.happymeal.connection.ConnectionUtility;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

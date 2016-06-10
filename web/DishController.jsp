@@ -1,4 +1,4 @@
-<%@ page import="happymeal.db.DishDB" %>
+<%@ page import="src.happymeal.db.DishDB" %>
 <%@ page import="org.json.JSONArray" %>
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="java.util.List" %>
