@@ -50,14 +50,35 @@
                         resNames = response.split(",")
                         for (var i = 0; i < resNames.length; i++) {
                             $("#somediv").append("<p>" + resNames[i] +
-                                    "<button type=\"button\" id = \""
-                                    + resNames[i] + "\" onclick=\"showComment()\"> Show Comments</button> <div id = \""+
-                                    resNames[i]+"c\"></div></div></p>");
+                                    "<button type='button' id = '"
+                                    + resNames[i] + "' onclick='showComment()'> Show Comments</button> " +
+                                    "<button id = '"+resNames[i]+"a' onclick='addComment()'>Add Comment </button> <div id = '"+
+                                    resNames[i]+"c'></div></div></p>");
                         }
                     }
                 })
             }
             $("#showRestaurant").toggleClass("down")
+    }
+
+    function addComment() {
+        var e = window.event,
+                btn = e.target || e.srcElement;
+        var rnamec = btn.id;
+        if ($(btn).hasClass("down")){
+
+        }else {
+            $(btn).addClass("down")
+            rname = rnamec.substr(0, rnamec.length-1)
+            //alert(rname);
+            elem = document.getElementById(rname+"c");
+            //alert(elem.id)
+            $(elem).append("<form method='post'> NAME: <input type='text' name='name' id='name' /><br />" +
+                    "Comment:<br />" +
+                    "<textarea name='comment' id='comment'></textarea><br />" +
+                    "<input type='hidden' name='articleid' id='articleid' value='<? echo $_GET[\"id\"]; ?>' /> " +
+                    "<input type='submit' value='Submit' /> + </form>")
+        }
     }
 
     function showComment() {
