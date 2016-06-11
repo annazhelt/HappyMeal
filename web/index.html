@@ -24,7 +24,12 @@
         </table>
         <button type="button" class="btn btn-default" onclick="showResult()">Show Result</button>
         <button type="button" class="btn btn-default" onclick="clearResult()">Clear Result</button>
+
     </form>
+    <div>
+        <button type="button" class="btn btn-default" id = "showRestaurant" onclick="showRestaurants()">Show Restaurants</button>
+    </div>
+    <div id="somediv"> </div>
 
 
 <script>
@@ -32,6 +37,46 @@
     function clearResult() {
         $("#resultTable").html("");
     }
+
+        function showRestaurants(){
+            $.ajax({
+                type: "GET",
+                url: "/showRestaurants",
+                success: function(response) {
+                    resNames = response.split(",")
+                    for (var i = 0; i<resNames.length ; i++) {
+                        $("#somediv").append("<p id=\""+resNames[i]+"\">" + resNames[i] +
+                                "<button type=\"button\" id = \"" + resNames[i] +"\" onclick=\"showComment()\"> Show Comments</button></p>");
+                    }
+                    $("#showRestaurant").attr('disabled', true);
+                }
+            });
+        }
+
+    function showComment() {
+        var e = window.event,
+                btn = e.target || e.srcElement;
+        //alert(btn.id);
+        var rname = btn.id;
+        $.ajax({
+            method: "POST",
+            url: "/showRestaurants",
+            data: {
+                resName: rname
+            },
+            success: function(response){
+                comments = response.split("/")
+                //alert(response)
+                for (var i = 0; i<comments.length ; i++){
+                    var parent = btn.parentElement
+                    $(parent).append("<p>"+comments[i]+"</p>");
+                }
+            }
+
+        });
+
+    }
+
 
     function showResult() {
         clearResult();

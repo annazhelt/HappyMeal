@@ -4,10 +4,16 @@ package src.happymeal.entity;
  * Created by anna on 2016-06-10.
  */
 public class Restaurant {
+
+    private int id;
     private String rname;
     private String address;
     private String admin_name;
     private int phone;
+
+    public int getId() {
+        return id;
+    }
 
     public String getAdmin_name() {
         return admin_name;
@@ -40,5 +46,9 @@ public class Restaurant {
 
     public void setRname(String rname) {
         this.rname = rname;
+    }
+
+    String getRestaurant(){
+        return rname + " " + phone + " " + address;
     }
 }
