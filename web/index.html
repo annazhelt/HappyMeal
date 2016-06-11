@@ -38,44 +38,54 @@
         $("#resultTable").html("");
     }
 
-        function showRestaurants(){
-            $.ajax({
-                type: "GET",
-                url: "/showRestaurants",
-                success: function(response) {
-                    resNames = response.split(",")
-                    for (var i = 0; i<resNames.length ; i++) {
-                        $("#somediv").append("<p id=\""+resNames[i]+"\">" + resNames[i] +
-                                "<button type=\"button\" id = \"" + resNames[i] +"\" onclick=\"showComment()\"> Show Comments</button></p>");
+    function showRestaurants(){
+
+            if ($("#showRestaurant").hasClass("down")){
+                $("#somediv").html("");
+            } else {
+                $.ajax({
+                    type: "GET",
+                    url: "/showRestaurants",
+                    success: function (response) {
+                        resNames = response.split(",")
+                        for (var i = 0; i < resNames.length; i++) {
+                            $("#somediv").append("<p>" + resNames[i] +
+                                    "<button type=\"button\" id = \""
+                                    + resNames[i] + "\" onclick=\"showComment()\"> Show Comments</button> <div id = \""+
+                                    resNames[i]+"c\"></div></div></p>");
+                        }
                     }
-                    $("#showRestaurant").attr('disabled', true);
-                }
-            });
-        }
+                })
+            }
+            $("#showRestaurant").toggleClass("down")
+    }
 
     function showComment() {
         var e = window.event,
                 btn = e.target || e.srcElement;
         //alert(btn.id);
         var rname = btn.id;
-        $.ajax({
-            method: "POST",
-            url: "/showRestaurants",
-            data: {
-                resName: rname
-            },
-            success: function(response){
-                comments = response.split("/")
-                //alert(response)
-                for (var i = 0; i<comments.length ; i++){
-                    var parent = btn.parentElement
-                    $(parent).append("<p>"+comments[i]+"</p>");
+        if ($(btn).hasClass("down")){
+            var elem = document.getElementById(rname+"c");
+            $(elem).html("");
+        } else {
+            $.ajax({
+                method: "POST",
+                url: "/showRestaurants",
+                data: {
+                    resName: rname
+                },
+                success: function (response) {
+                    comments = response.split("/")
+                    var elem = document.getElementById(rname + "c");
+                    for (var i = 0; i < comments.length; i++) {
+                        $(elem).append("<p>" + comments[i] + "</p>");
+                    }
                 }
-                $(btn).attr('disabled', true);
-            }
 
-        });
-
+            });
+        }
+        $(btn).toggleClass("down")
     }
 
 
