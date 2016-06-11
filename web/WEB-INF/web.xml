@@ -12,4 +12,14 @@
         <servlet-name>ShowRestaurant</servlet-name>
         <url-pattern>/showRestaurants</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Comment</servlet-name>
+        <servlet-class>web.CommentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Comment</servlet-name>
+        <url-pattern>/showComments</url-pattern>
+    </servlet-mapping>
 </web-app>

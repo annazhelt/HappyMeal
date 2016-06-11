@@ -70,8 +70,8 @@
             $(elem).html("");
         } else {
             $.ajax({
-                method: "POST",
-                url: "/showRestaurants",
+                method: "GET",
+                url: "/showComments",
                 data: {
                     resName: rname
                 },

@@ -9,32 +9,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by anna on 2016-06-10.
  */
-@WebServlet(name = "ShowRestaurant")
-public class ShowRestaurant extends HttpServlet {
-    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+@WebServlet(name = "CommentServlet")
+public class CommentServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
-    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String text = "";
-
         Connection conn = null;
         Statement stmt = null;
         try{
+
+            String name = request.getParameter("resName");
+            //text += name;
             conn = ConnectionUtility.getConnection();
             stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM Restaurant";
+            sql = "select user_name, rating, comments from restaurant, review where restaurant.id = review.restaurant_id and restaurant.rname = '"+ name + "'";
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-                String name = rs.getString("rname");
-                text += name + ",";
+                String reviewer = rs.getString("user_name");
+                int rating = rs.getInt("rating");
+                String comment = rs.getString("comments");
+                text += reviewer + " " + rating + " " + comment + "/";
             }
             //STEP 6: Clean-up environment
             rs.close();
@@ -65,6 +72,5 @@ public class ShowRestaurant extends HttpServlet {
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         PrintWriter pw = response.getWriter();
         pw.write(text);
-
     }
 }
