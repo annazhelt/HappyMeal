@@ -71,6 +71,7 @@
                     var parent = btn.parentElement
                     $(parent).append("<p>"+comments[i]+"</p>");
                 }
+                $(btn).attr('disabled', true);
             }
 
         });
