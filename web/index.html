@@ -8,21 +8,21 @@
 
     <form class="form-inline">
         <div class="form-group">
-            <label for="columnName">Display</label>
+            <label for="columnName">Display name and </label>
             <select id="columnName" class="form-control">
-                <option value="name">Name</option>
+                <option value="restaurant">Restaurant</option>
                 <option value="price">Price</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="priceThreshold">for Dishes whose price is greater than?</label>
-            <input type="number" class="form-control" id="priceThreshold" >
+            <label for="priceThreshold">for Dishes whose price is greater than </label>
+            <input type="number" min="0" class="form-control" id="priceThreshold" >
         </div>
 
         <table id="resultTable" class="table-bordered">
 
         </table>
-        <button type="button" class="btn btn-default" onclick="showResult()">Show Result</button>
+        <button type="button" class="btn btn-primaty" onclick="showResult()">Show Result</button>
         <button type="button" class="btn btn-default" onclick="clearResult()">Clear Result</button>
 
     </form>
@@ -126,16 +126,20 @@
                 var resultValue = JSON.parse(msg);
                 var columnName = $("#columnName").val();
                 var headerRow = $("<tr/>");
-                var headerColumn = $("<th/>").html(columnName).appendTo(headerRow);
+                var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
+                var headerColumnForOthers = $("<th/>").html(columnName).appendTo(headerRow);
                 $("#resultTable").append(headerRow);
 
                 var resultRow;
+                var dishNameColumn;
                 var resultColumn;
                 for (var i = 0; i < resultValue.length; i++) {
                     var result = resultValue[i];
+                    var dishName = result["dishName"];
                     var value = result[columnName];
 
                     resultRow = $("<tr/>");
+                    dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
                     resultColumn = $("<td/>").html(value).appendTo(resultRow);
                     $("#resultTable").append(resultRow);
                 }

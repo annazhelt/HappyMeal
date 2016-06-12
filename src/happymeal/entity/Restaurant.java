@@ -1,4 +1,6 @@
-package src.happymeal.entity;
+package happymeal.entity;
+
+import java.util.List;
 
 /**
  * Created by anna on 2016-06-10.
@@ -10,6 +12,7 @@ public class Restaurant {
     private String address;
     private String admin_name;
     private int phone;
+    private List<Dish> dishes;
 
     public int getId() {
         return id;
@@ -48,7 +51,19 @@ public class Restaurant {
         this.rname = rname;
     }
 
-    String getRestaurant(){
+    public String getRestaurant(){
         return rname + " " + phone + " " + address;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 }

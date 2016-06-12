@@ -1,4 +1,4 @@
-package src.happymeal.connection;
+package happymeal.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

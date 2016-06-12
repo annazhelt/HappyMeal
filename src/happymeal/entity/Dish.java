@@ -1,9 +1,11 @@
-package src.happymeal.entity;
+package happymeal.entity;
 
 public class Dish {
     private int restaurantID;
     private String name;
     private double price;
+
+    private Restaurant restaurant;
 
     public int getRestaurantID() {
         return restaurantID;
@@ -27,5 +29,13 @@ public class Dish {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }
