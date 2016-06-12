@@ -62,13 +62,42 @@ public class DishDB {
                 dish.setName(dishName);
                 resultList.add(dish);
             }
-
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        return resultList;
+    }
 
+    private PreparedStatement createAggregationPreparedStatement(Connection conn, String aggregation)
+            throws SQLException {
+        String query = "select dname, price from dish where price = (select " +
+                aggregation + "(price) from dish);";
 
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        return preparedStatement;
+    }
+
+    public List<Dish> getDishListByAggregation(String aggregation) {
+        List<Dish> resultList = new ArrayList<>();
+        try (
+                Connection conn = ConnectionUtility.getConnection();
+                PreparedStatement preparedStatement = createAggregationPreparedStatement(conn, aggregation);
+                ResultSet resultSet = preparedStatement.executeQuery();
+        ) {
+            while (resultSet.next()) {
+                Dish dish = new Dish();
+
+                String dishName = resultSet.getString("dname");
+                dish.setName(dishName);
+
+                double price = resultSet.getDouble("price");
+                dish.setPrice(price);
+
+                resultList.add(dish);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         return resultList;
     }
 
