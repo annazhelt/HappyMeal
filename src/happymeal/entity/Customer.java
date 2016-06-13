@@ -1,6 +1,6 @@
 package happymeal.entity;
 
-public class Customers {
+public class Customer {
     private String cname;
     private int phone;
 

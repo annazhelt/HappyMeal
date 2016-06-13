@@ -6,7 +6,7 @@ import java.util.Date;
  * created by Vittoria on 2016-06-13
  */
 
-public class Member extends Customers {
+public class Member extends Customer {
     private String mname;
     private double points;
     private Date dateJoined;
