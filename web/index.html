@@ -6,46 +6,64 @@
 </head>
 <body>
 
-    <form class="form-inline">
-        <div class="form-group">
-            <label for="columnName">Display name and </label>
-            <select id="columnName" class="form-control">
-                <option value="restaurant">Restaurant</option>
-                <option value="price">Price</option>
-            </select>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Find dishes</h3>
         </div>
-        <div class="form-group">
-            <label for="priceThreshold">for Dishes whose price is greater than </label>
-            <input type="number" min="0" class="form-control" id="priceThreshold" >
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="columnName">Display name and </label>
+                    <select id="columnName" class="form-control">
+                        <option value="restaurant">Restaurant</option>
+                        <option value="price">Price</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priceThreshold">for Dishes whose price is greater than </label>
+                    <input type="number" min="0" class="form-control" id="priceThreshold" >
+                </div>
+                <br>
+                <p></p>
+                <div>
+
+                    <table id="resultTable" class="table">
+
+                    </table>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="showResult()">Show Result</button>
+                <button type="button" class="btn btn-default" onclick="clearResult()">Clear Result</button>
+
+            </form>
         </div>
-        <div>
+    </div>
 
-            <table id="resultTable" class="table">
-
-            </table>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Find the most/leat expensive dish(es)</h3>
         </div>
-        <button type="button" class="btn btn-primary" onclick="showResult()">Show Result</button>
-        <button type="button" class="btn btn-default" onclick="clearResult()">Clear Result</button>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="aggregation">Display the </label>
+                    <select id="aggregation" class="form-control">
+                        <option value="max">most</option>
+                        <option value="min">least</option>
+                    </select>
+                    <label for="aggregation">expensive dish </label>
+                </div>
+                <br>
+                <p></p>
+                <div>
+                    <table id="aggregationResult" class="table">
+                    </table>
+                </div>
+                <button type="button" class="btn btn-success" onclick="showAggregationResult()">Show Result</button>
+                <button type="button" class="btn btn-default" onclick="clearAggregationResult()">Clear Result</button>
 
-    </form>
-
-    <form class="form-inline">
-        <div class="form-group">
-            <label for="aggregation">Display the </label>
-            <select id="aggregation" class="form-control">
-                <option value="max">most</option>
-                <option value="min">least</option>
-            </select>
-            <label for="aggregation">expensive dish </label>
+            </form>
         </div>
-        <div>
-            <table id="aggregationResult" class="table">
-            </table>
-        </div>
-        <button type="button" class="btn btn-primary" onclick="showAggregationResult()">Show Result</button>
-        <button type="button" class="btn btn-default" onclick="clearAggregationResult()">Clear Result</button>
-
-    </form>
+    </div>
 
     <div>
         <button type="button" class="btn btn-default" id = "showRestaurant" onclick="showRestaurants()">Show Restaurants</button>
