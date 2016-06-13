@@ -14,11 +14,17 @@ import java.sql.*;
 /**
  * Created by anna on 2016-06-10.
  */
-@WebServlet(name = "ShowRestaurant")
-public class ShowRestaurant extends HttpServlet {
+@WebServlet(name = "RestaurantServlet")
+public class RestaurantServlet extends HttpServlet {
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
 
     }
+
+//"<p>" + resNames[i] +
+//        "<button type='button' id = '"
+//        + resNames[i] + "' onclick='showComment()'> Show Comments</button> " +
+//        "<button id = '"+resNames[i]+"a' onclick='addComment()'>Add Comment </button> <div id = '"+
+//resNames[i]+"c'></div></div></p>"
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         String text = "";
@@ -33,8 +39,10 @@ public class ShowRestaurant extends HttpServlet {
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
+
                 String name = rs.getString("rname");
-                text += name + ",";
+                text += constructTableEntry(name);
+
             }
             //STEP 6: Clean-up environment
             rs.close();
@@ -66,5 +74,13 @@ public class ShowRestaurant extends HttpServlet {
         PrintWriter pw = response.getWriter();
         pw.write(text);
 
+    }
+
+    private  String constructTableEntry(String name){
+        String tableEntry = "";
+        tableEntry += "<tr id='"+name+"'> <td>" + name+"</td>" +
+                "<td> <button onclick='showComment()'>Show Comments</button> </td> </tr>" +
+                "<tr><td colspan=2><table style = \"width:100%\" class='innerTable' cellpadding='10'> </table> </td> </tr>";
+        return tableEntry;
     }
 }

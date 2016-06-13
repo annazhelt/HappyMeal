@@ -41,7 +41,7 @@ public class CommentServlet extends HttpServlet {
                 String reviewer = rs.getString("user_name");
                 int rating = rs.getInt("rating");
                 String comment = rs.getString("comments");
-                text += reviewer + " " + rating + " " + comment + "/";
+                text+= getCommentEntry(reviewer, rating, comment);
             }
             //STEP 6: Clean-up environment
             rs.close();
@@ -72,5 +72,10 @@ public class CommentServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         PrintWriter pw = response.getWriter();
         pw.write(text);
+    }
+
+    private String getCommentEntry(String reviewer, int rating, String comment){
+        String commentEntry = "<tr> <td>"+reviewer+"</td> <td>"+rating+"</td><td>"+comment+"</td> </tr>";
+        return commentEntry;
     }
 }
