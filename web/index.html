@@ -74,6 +74,10 @@
     </table>
     </div>
 
+    <div id="division">
+    <h3> Show all restaurants which offer all tags</h3>
+        <button type="button" class="btn btn-default" id="division-button" onclick="divideRestaurantByTags()">Restaurants which offer all tags!</button>
+    </div>
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -110,6 +114,21 @@
 
 <script>
 
+    function divideRestaurantByTags(){
+        if ($("#division-button").hasClass("down")){
+            $("#division p").remove();
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "/showDivision",
+                success: function (response) {
+                    $("#division").append(response)
+                }
+            })
+        }
+        $("#division-button").toggleClass("down")
+    }
+
     function showRestaurants(){
 
             if ($("#showRestaurant").hasClass("down")){
@@ -125,6 +144,8 @@
             }
             $("#showRestaurant").toggleClass("down")
     }
+
+
 
     function addComment() {
         var e = window.event,

@@ -22,4 +22,14 @@
         <servlet-name>Comment</servlet-name>
         <url-pattern>/showComments</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Division</servlet-name>
+        <servlet-class>web.DivisionServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Division</servlet-name>
+        <url-pattern>/showDivision</url-pattern>
+    </servlet-mapping>
 </web-app>
