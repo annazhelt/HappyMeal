@@ -80,7 +80,7 @@ public class RestaurantServlet extends HttpServlet {
         String tableEntry = "";
         tableEntry += "<tr id='"+name+"'> <td>" + name+"</td>" +
                 "<td> <button onclick='showComment()'>Show Comments</button> </td> </tr>" +
-                "<tr><td colspan=2><table style = \"width:100%\" class='innerTable' cellpadding='10'> </table> </td> </tr>";
+                "<tr><td colspan=2><table class='table'> </table> </td> </tr>";
         return tableEntry;
     }
 }
