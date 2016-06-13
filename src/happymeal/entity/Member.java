@@ -18,9 +18,15 @@ public class Member extends Customer {
     public double getPoints(){
         return this.points;
     }
-    
-    // admin add points or reduce points??
-    
+
+    public void setMname(String mname) {
+        this.mname = mname;
+    }
+
+    public void setPoints(double points) {
+        this.points = points;
+    }
+
     public Date getDateJoined(){
         return this.dateJoined;
     }
