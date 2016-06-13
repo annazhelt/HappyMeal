@@ -105,7 +105,7 @@ insert into Restaurant (rname, admin_name, phone, address) values
 	('Loade Cafe', 'Vittoria-a', '7786779652', '6488 university st, vancouver, c9y2t3'),
 	('Point Grill', 'Joe-a', '6048229503', '2205 lower mall, vancouver, v6t1z4'),
 	('Tim Hortons', 'Yvonne-a', '6048220002', '2205 ubc forestry building, vancouver, v6t1z4'),
-  ('Old Spaghetti Factory', 'Vittoria-a', '7786999652', '7654 discovery way, victoria, v5b3j1'),
+  ('Old Spaghetti', 'Vittoria-a', '7786999652', '7654 discovery way, victoria, v5b3j1'),
   ('Lamplighter', 'Joe-a', '6048229345', '3456 king edward avenue, ottawa, o3d6g4'),
   ('Flying Pig', 'Yvonne-a', '6042560002', '1234 2nd avenue, calgary, c5g3d7');
 

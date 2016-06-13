@@ -4,10 +4,6 @@
 <%@ page import="org.json.JSONObject" %>
 <%@ page import="java.util.List" %>
 
-<%
-    List
-%>
-
 
 <%
     String aggregation = request.getParameter("aggregation"); // values: "max"/"min"
