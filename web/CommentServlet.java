@@ -1,6 +1,6 @@
 package web;
 
-import src.happymeal.connection.ConnectionUtility;
+import happymeal.connection.ConnectionUtility;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

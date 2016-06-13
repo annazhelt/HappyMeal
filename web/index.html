@@ -71,6 +71,39 @@
     <div id="somediv"> </div>
 
 
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">List the most/least expensive dishes for each restaurant that is on average cheaper than other restaurants, located in selected city</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="aggregation2">Display the </label>
+                    <select id="aggregation2" class="form-control">
+                        <option value="max">most</option>
+                        <option value="min">least</option>
+                    </select>
+                    <label for="aggregation2">expensive dish for restaurants in </label>
+                    <select id="city" class="form-control">
+                        <option value="vancouver">Vancouver</option>
+                        <option value="calgary">Calgary</option>
+                        <option value="ottawa">Ottawa</option>
+                        <option value="victoria">Victoria</option>
+                    </select>
+                </div>
+                <br>
+                <p></p>
+                <div>
+                    <table id="nestedAggregationResult" class="table">
+                    </table>
+                </div>
+                <button type="button" class="btn btn-success" onclick="showNestedAggregationResult()">Show Result</button>
+                <button type="button" class="btn btn-default" onclick="clearNestedAggregationResult()">Clear Result</button>
+
+            </form>
+        </div>
+    </div>
+
 <script>
 
     function showRestaurants(){
@@ -181,6 +214,48 @@
             });
 
     }
+
+    //nested aggregation with group by/having
+
+    function clearNestedAggregationResult() {
+        $("#nestedAggregationResult").html("");
+    }
+    function showNestedAggregationResult() {
+        clearNestedAggregationResult();
+        var aggregation = $("#aggregation2").val(); // values "max" "min"
+        var city = $("city").val();
+        $.ajax({
+            method: "POST",
+            url: "MaxMinCityDishController.jsp",
+            data: {
+                aggregation : aggregation,
+                city: city
+            }
+        })
+                .done(function(msg) {
+                    var resultValue = JSON.parse(msg);
+                    var headerRow = $("<tr/>");
+                    var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
+                    var headerColumnForPrice = $("<th/>").html("price").appendTo(headerRow);
+                    $("#nestedAggregationResult").append(headerRow);
+
+                    var resultRow;
+                    var dishNameColumn;
+                    var priceColumn;
+                    for (var i = 0; i < resultValue.length; i++) {
+                        var result = resultValue[i];
+                        var dishName = result["dishName"];
+                        var price = result["price"];
+
+                        resultRow = $("<tr/>");
+                        dishNameColumn = $("<td>/<input type='checkbox' name='selectedDishNames' />").html(dishName).appendTo(resultRow)
+                        priceColumn = $("<td/>").html(price).appendTo(resultRow);
+                        $("#nestedAggregationResult").append(resultRow);
+                    }
+                });
+
+    }
+
 
     //requirement 1
     function clearResult() {
