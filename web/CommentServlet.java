@@ -41,7 +41,7 @@ public class CommentServlet extends HttpServlet {
                 String reviewer = rs.getString("user_name");
                 int rating = rs.getInt("rating");
                 String comment = rs.getString("comments");
-                text+= getCommentEntry(reviewer, rating, comment);
+                text+= getCommentEntry(reviewer, rating, comment, name);
             }
             //STEP 6: Clean-up environment
             rs.close();
@@ -74,8 +74,8 @@ public class CommentServlet extends HttpServlet {
         pw.write(text);
     }
 
-    private String getCommentEntry(String reviewer, int rating, String comment){
-        String commentEntry = "<tr> <td>"+reviewer+"</td> <td>"+rating+"</td><td>"+comment+"</td> </tr>";
+    private String getCommentEntry(String reviewer, int rating, String comment, String name){
+        String commentEntry = "<tr class='"+name+"'> <td>"+reviewer+"</td> <td>"+rating+"</td><td>"+comment+"</td> </tr>";
         return commentEntry;
     }
 }

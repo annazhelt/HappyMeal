@@ -154,10 +154,14 @@
 
         var rname = btn.closest("tr").id;
         var row = btn.closest("tr")
-        var tableRow = row.nextSibling
-        var table = tableRow.firstChild
+        //var tableRow = row.nextSibling
+        //var table = tableRow.firstChild
         if ($(btn).hasClass("down")){
-            $(table).html("");
+            var crows = document.getElementsByClassName(rname);
+            while(crows[0]){
+                crows[0].parentNode.removeChild(crows[0]);
+            }
+
         } else {
             $.ajax({
                 method: "GET",
@@ -166,7 +170,7 @@
                     resName: rname
                 },
                 success: function (response) {
-                    $(table).append(response);
+                    $(row).after(response);
                 }
 
             });
@@ -220,7 +224,7 @@
     function showNestedAggregationResult() {
         clearNestedAggregationResult();
         var aggregation = $("#aggregation2").val(); // values "max" "min"
-        var city = $("city").val();
+        var city = $("#city").val();
         $.ajax({
             method: "POST",
             url: "MaxMinCityDishController.jsp",
@@ -230,6 +234,7 @@
             }
         })
                 .done(function(msg) {
+                    alert(msg)
                     var resultValue = JSON.parse(msg);
                     var headerRow = $("<tr/>");
                     var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
