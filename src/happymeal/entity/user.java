@@ -7,6 +7,7 @@ import static java.lang.System.out;
  * created by Vittoria on 2016-06-13
  */
 
+
 public class User{
 //int MAX_CAPACITY_NAME = 30;
 //int MAX_CAPACITY_PASSWORD = 15;
@@ -37,4 +38,5 @@ public class User{
 //    public int isAdmin (String username){
 //        return (username.isAdminFlag == 'Y');
 //    }
+
 }

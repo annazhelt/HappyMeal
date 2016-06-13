@@ -54,7 +54,7 @@ public class DishDB {
                     String rname = resultSet.getString("rname");
                     restaurant.setRname(rname);
                     dish.setRestaurant(restaurant);
-                } else if (dbColumnName.equals("price")){
+                } else if (dbColumnName.equals("price")) {
                     double price = resultSet.getDouble("price");
                     dish.setPrice(price);
                 }
@@ -100,5 +100,7 @@ public class DishDB {
         }
         return resultList;
     }
-
 }
+
+
+

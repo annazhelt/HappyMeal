@@ -104,7 +104,11 @@ insert into Restaurant (rname, admin_name, phone, address) values
 	('La Catrina Tacos', 'Valeria-a','7789912566', '1187 Denman st, vancouver, v7u5d2'),
 	('Loade Cafe', 'Vittoria-a', '7786779652', '6488 university st, vancouver, c9y2t3'),
 	('Point Grill', 'Joe-a', '6048229503', '2205 lower mall, vancouver, v6t1z4'),
-	('Tim Hortons', 'Yvonne-a', '6048220002', '2205 ubc forestry building, vancouver, v6t1z4');
+	('Tim Hortons', 'Yvonne-a', '6048220002', '2205 ubc forestry building, vancouver, v6t1z4'),
+  ('Old Spaghetti Factory', 'Vittoria-a', '7786999652', '7654 discovery way, victoria, v5b3j1'),
+  ('Lamplighter', 'Joe-a', '6048229345', '3456 king edward avenue, ottawa, o3d6g4'),
+  ('Flying Pig', 'Yvonne-a', '6042560002', '1234 2nd avenue, calgary, c5g3d7');
+
 CREATE TABLE dish (
     restaurant_id INT,
     dname VARCHAR(100) NOT NULL,
@@ -124,7 +128,14 @@ insert into dish (restaurant_id, dname, price)values
 	('5', 'iced lemonade', '2.00'),
 	('5', 'crispy chicken sandwich', '5.50'),
 	('5', 'sausage sandwich', '5.50'),
-	('5', 'white chocolate cookie', '5.50');
+	('5', 'white chocolate cookie', '5.50'),
+  ('6', 'chicken salad', '5.00'),
+  ('6', 'club sandwich', '6.00'),
+  ('7', 'dark chocolate cookie', '2.50'),
+  ('7', 'cheesecake', '5.50'),
+  ('8', 'spaghetti with meat balls', '11.50'),
+  ('8', 'black forest cake', '5.50');
+
 CREATE TABLE orderdish (
     order_id INT NOT NULL,
     restaurant_id INT,
