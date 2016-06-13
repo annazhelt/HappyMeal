@@ -68,7 +68,11 @@
     <div>
         <button type="button" class="btn btn-default" id = "showRestaurant" onclick="showRestaurants()">Show Restaurants</button>
     </div>
-    <div id="somediv"> </div>
+    <div id="restaurants">
+    <table style = "width:50%" id="restaurantTable" cellpadding="10">
+
+    </table>
+    </div>
 
 
     <div class="panel panel-primary">
@@ -109,20 +113,13 @@
     function showRestaurants(){
 
             if ($("#showRestaurant").hasClass("down")){
-                $("#somediv").html("");
+                $("#restaurantTable").html("");
             } else {
                 $.ajax({
                     type: "GET",
                     url: "/showRestaurants",
                     success: function (response) {
-                        resNames = response.split(",")
-                        for (var i = 0; i < resNames.length; i++) {
-                            $("#somediv").append("<p>" + resNames[i] +
-                                    "<button type='button' id = '"
-                                    + resNames[i] + "' onclick='showComment()'> Show Comments</button> " +
-                                    "<button id = '"+resNames[i]+"a' onclick='addComment()'>Add Comment </button> <div id = '"+
-                                    resNames[i]+"c'></div></div></p>");
-                        }
+                        $("#restaurantTable").append(response);
                     }
                 })
             }
@@ -132,7 +129,8 @@
     function addComment() {
         var e = window.event,
                 btn = e.target || e.srcElement;
-        var rnamec = btn.id;
+        parentid = $(btn).closest("tr").id
+        alert(parentid)
         if ($(btn).hasClass("down")){
 
         }else {
@@ -152,11 +150,14 @@
     function showComment() {
         var e = window.event,
                 btn = e.target || e.srcElement;
-        //alert(btn.id);
-        var rname = btn.id;
+        //name of the restaurant associated with the button
+
+        var rname = btn.closest("tr").id;
+        var row = btn.closest("tr")
+        var tableRow = row.nextSibling
+        var table = tableRow.firstChild
         if ($(btn).hasClass("down")){
-            var elem = document.getElementById(rname+"c");
-            $(elem).html("");
+            $(table).html("");
         } else {
             $.ajax({
                 method: "GET",
@@ -165,11 +166,7 @@
                     resName: rname
                 },
                 success: function (response) {
-                    comments = response.split("/")
-                    var elem = document.getElementById(rname + "c");
-                    for (var i = 0; i < comments.length; i++) {
-                        $(elem).append("<p>" + comments[i] + "</p>");
-                    }
+                    $(table).append(response);
                 }
 
             });

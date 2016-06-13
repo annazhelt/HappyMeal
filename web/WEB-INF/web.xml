@@ -5,7 +5,7 @@
          version="3.1">
     <servlet>
         <servlet-name>ShowRestaurant</servlet-name>
-        <servlet-class>web.ShowRestaurant</servlet-class>
+        <servlet-class>web.RestaurantServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
