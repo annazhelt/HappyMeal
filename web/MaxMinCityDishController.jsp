@@ -8,60 +8,26 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="happymeal.db.NestedAggregationDB" %>
+<%@ page import="happymeal.entity.NestedAggregationObject" %>
 
 
-
-<%!
-    private PreparedStatement createNestedAggregationPreparedStatement(Connection conn, String aggregation, String city)
-        throws SQLException {
-
-        String query = "select " + aggregation + "(price), restaurant_id from dish "+
-                " where restaurant_id in (select id from restaurant where address like '" + city + "') "+
-                "group by restaurant_id having avg(price) < (select avg(price) from dish);";
-
-        PreparedStatement preparedStatement = conn.prepareStatement(query);
-        return preparedStatement;
-}
-%>
-<%!
-    private List<Dish> getDishList(String aggregation, String city) {
-        List<Dish> resultList = new ArrayList<>();
-        try (
-                Connection conn = happymeal.connection.ConnectionUtility.getConnection();
-                PreparedStatement preparedStatement = createNestedAggregationPreparedStatement(conn, aggregation, city);
-                ResultSet resultSet = preparedStatement.executeQuery();
-        ) {
-            while (resultSet.next()) {
-                Dish dish = new Dish();
-
-                String dishName = resultSet.getString("dname");
-                dish.setName(dishName);
-
-                double price = resultSet.getDouble("price");
-                dish.setPrice(price);
-
-                resultList.add(dish);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return resultList;
-    }
-%>
 <%
-    String aggregation = request.getParameter("aggregation2"); // values: "max"/"min"
+    String aggregation = request.getParameter("aggregation"); // values: "max"/"min"
     String city = request.getParameter("city"); //selected city
-    List<Dish> resultList = getDishList(aggregation, city);
+    List<NestedAggregationObject> resultList = NestedAggregationDB.getDishList(aggregation,city);
 
 
     JSONArray jsonArray = new JSONArray(); // {}
-    for (Dish dish : resultList) {
+    for (NestedAggregationObject object : resultList) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("dishName", dish.getName());
-        jsonObject.put("price", dish.getPrice());
+        jsonObject.put("dishName", object.getDishName());
+        jsonObject.put("price", object.getPrice());
+        jsonObject.put("restaurant", object.getRestaurantName());
         jsonArray.put(jsonObject);
     }
 
     out.print(jsonArray.toString());
 
-    %>
+%>
+

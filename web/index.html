@@ -87,7 +87,7 @@
                         <option value="max">most</option>
                         <option value="min">least</option>
                     </select>
-                    <label for="aggregation2">expensive dish for restaurants in </label>
+                    <label for="city">expensive dish for restaurants in </label>
                     <select id="city" class="form-control">
                         <option value="vancouver">Vancouver</option>
                         <option value="calgary">Calgary</option>
@@ -237,20 +237,25 @@
                     alert(msg)
                     var resultValue = JSON.parse(msg);
                     var headerRow = $("<tr/>");
+                    var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);
                     var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
                     var headerColumnForPrice = $("<th/>").html("price").appendTo(headerRow);
                     $("#nestedAggregationResult").append(headerRow);
 
                     var resultRow;
+                    var restaurantColumn;
                     var dishNameColumn;
                     var priceColumn;
                     for (var i = 0; i < resultValue.length; i++) {
                         var result = resultValue[i];
+
+                        var restaurant = result["restaurant"];
                         var dishName = result["dishName"];
                         var price = result["price"];
 
                         resultRow = $("<tr/>");
-                        dishNameColumn = $("<td>/<input type='checkbox' name='selectedDishNames' />").html(dishName).appendTo(resultRow)
+                        restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow)
+                        dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
                         priceColumn = $("<td/>").html(price).appendTo(resultRow);
                         $("#nestedAggregationResult").append(resultRow);
                     }
