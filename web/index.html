@@ -6,26 +6,65 @@
 </head>
 <body>
 
-    <form class="form-inline">
-        <div class="form-group">
-            <label for="columnName">Display</label>
-            <select id="columnName" class="form-control">
-                <option value="name">Name</option>
-                <option value="price">Price</option>
-            </select>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Find dishes</h3>
         </div>
-        <div class="form-group">
-            <label for="priceThreshold">for Dishes whose price is greater than?</label>
-            <input type="number" class="form-control" id="priceThreshold" >
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="columnName">Display name and </label>
+                    <select id="columnName" class="form-control">
+                        <option value="restaurant">Restaurant</option>
+                        <option value="price">Price</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priceThreshold">for Dishes whose price is greater than </label>
+                    <input type="number" min="0" class="form-control" id="priceThreshold" >
+                </div>
+                <br>
+                <p></p>
+                <div>
+
+                    <table id="resultTable" class="table">
+
+                    </table>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="showResult()">Show Result</button>
+                <button type="button" class="btn btn-default" onclick="clearResult()">Clear Result</button>
+
+            </form>
         </div>
+    </div>
 
-        <table id="resultTable" class="table-bordered">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Find the most/leat expensive dish(es)</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="aggregation">Display the </label>
+                    <select id="aggregation" class="form-control">
+                        <option value="max">most</option>
+                        <option value="min">least</option>
+                    </select>
+                    <label for="aggregation">expensive dish </label>
+                </div>
+                <br>
+                <p></p>
+                <div>
+                    <table id="aggregationResult" class="table">
+                    </table>
+                </div>
+                <button type="button" class="btn btn-success" onclick="showAggregationResult()">Show Result</button>
+                <button type="button" class="btn btn-default" onclick="clearAggregationResult()">Clear Result</button>
 
-        </table>
-        <button type="button" class="btn btn-default" onclick="showResult()">Show Result</button>
-        <button type="button" class="btn btn-default" onclick="clearResult()">Clear Result</button>
+            </form>
+        </div>
+    </div>
 
-    </form>
     <div>
         <button type="button" class="btn btn-default" id = "showRestaurant" onclick="showRestaurants()">Show Restaurants</button>
     </div>
@@ -37,11 +76,6 @@
 
 
 <script>
-
-
-    function clearResult() {
-        $("#resultTable").html("");
-    }
 
     function showRestaurants(){
 
@@ -107,37 +141,82 @@
         $(btn).toggleClass("down")
     }
 
+    //requirement 3
+    function clearAggregationResult() {
+        $("#aggregationResult").html("");
+    }
+    function showAggregationResult() {
+        clearAggregationResult();
+        var aggregation = $("#aggregation").val(); // values "max" "min"
+        $.ajax({
+            method: "POST",
+            url: "MaxMinDishController.jsp",
+            data: {
+                aggregation : aggregation
+            }
+        })
+            .done(function(msg) {
+                var resultValue = JSON.parse(msg);
+                var headerRow = $("<tr/>");
+                var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
+                var headerColumnForPrice = $("<th/>").html("price").appendTo(headerRow);
+                $("#aggregationResult").append(headerRow);
 
+                var resultRow;
+                var dishNameColumn;
+                var priceColumn;
+                for (var i = 0; i < resultValue.length; i++) {
+                    var result = resultValue[i];
+                    var dishName = result["dishName"];
+                    var price = result["price"];
+
+                    resultRow = $("<tr/>");
+                    dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
+                    priceColumn = $("<td/>").html(price).appendTo(resultRow);
+                    $("#aggregationResult").append(resultRow);
+                }
+            });
+
+    }
+
+    //requirement 1
+    function clearResult() {
+        $("#resultTable").html("");
+    }
     function showResult() {
         clearResult();
         var columnName = $("#columnName").val();
         var priceThreshold = $("#priceThreshold").val();
         $.ajax({
-            method: "POST",
-            url: "DishController.jsp",
-            data: {
-                columnName : columnName,
-                priceThreshold : priceThreshold
-            }
-        })
-            .done(function(msg) {
-                var resultValue = JSON.parse(msg);
-                var columnName = $("#columnName").val();
-                var headerRow = $("<tr/>");
-                var headerColumn = $("<th/>").html(columnName).appendTo(headerRow);
-                $("#resultTable").append(headerRow);
+                    method: "POST",
+                    url: "DishController.jsp",
+                    data: {
+                        columnName : columnName,
+                        priceThreshold : priceThreshold
+                    }
+                })
+                .done(function(msg) {
+                    var resultValue = JSON.parse(msg);
+                    var columnName = $("#columnName").val();
+                    var headerRow = $("<tr/>");
+                    var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
+                    var headerColumnForOthers = $("<th/>").html(columnName).appendTo(headerRow);
+                    $("#resultTable").append(headerRow);
 
-                var resultRow;
-                var resultColumn;
-                for (var i = 0; i < resultValue.length; i++) {
-                    var result = resultValue[i];
-                    var value = result[columnName];
+                    var resultRow;
+                    var dishNameColumn;
+                    var resultColumn;
+                    for (var i = 0; i < resultValue.length; i++) {
+                        var result = resultValue[i];
+                        var dishName = result["dishName"];
+                        var value = result[columnName];
 
-                    resultRow = $("<tr/>");
-                    resultColumn = $("<td/>").html(value).appendTo(resultRow);
-                    $("#resultTable").append(resultRow);
-                }
-            });
+                        resultRow = $("<tr/>");
+                        dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
+                        resultColumn = $("<td/>").html(value).appendTo(resultRow);
+                        $("#resultTable").append(resultRow);
+                    }
+                });
 
     }
 </script>
