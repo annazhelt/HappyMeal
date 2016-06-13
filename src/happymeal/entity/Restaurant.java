@@ -1,5 +1,4 @@
 package happymeal.entity;
-
 import java.util.List;
 
 /**
