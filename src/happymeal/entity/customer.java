@@ -7,7 +7,7 @@ import static java.lang.System.out;
  * created by Vittoria on 2016-06-13
  */
 
-public class Customer  extends user{
+public class Customer {
     private String cname;
     private int phone;
     
