@@ -21,16 +21,18 @@ public class AuthFilter implements Filter {
         HttpSession session = request.getSession(false);
         String loginURI = request.getContextPath() + "/login";
 
-        boolean loggedIn = session != null && session.getAttribute("user") != null;
+        boolean loggedIn = session != null && session.getAttribute("username") != null;
         boolean loginRequest = request.getRequestURI().equals(loginURI);
 
         if (loggedIn || loginRequest) {
             chain.doFilter(request, response);
         } else {
-            //req.setAttribute("message", "Need to login.");
-            response.sendRedirect(loginURI);
+            request.setAttribute("message", "Need to login!");
+            request.getRequestDispatcher("/login").forward(request, response);
+            //response.sendRedirect(loginURI);
         }
     }
+
 
     public void init(FilterConfig config) throws ServletException {
 
