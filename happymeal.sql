@@ -129,6 +129,9 @@ insert into dish (restaurant_id, dname, price)values
 	('5', 'crispy chicken sandwich', '5.50'),
 	('5', 'sausage sandwich', '5.50'),
 	('5', 'white chocolate cookie', '5.50'),
+  ('5','chips', '5.00'),
+  ('5', 'salsa', '5.00'),
+  ('5', 'salad', '10.00'),
   ('6', 'chicken salad', '5.00'),
   ('6', 'club sandwich', '6.00'),
   ('7', 'dark chocolate cookie', '2.50'),
@@ -312,5 +315,8 @@ insert into dishtag values
 	('5', 'iced lemonade', 'sour'),
 	('5', 'crispy chicken sandwich', 'hot'),
 	('5', 'sausage sandwich', 'hot'),
-	('5', 'white chocolate cookie', 'sweet');
+	('5', 'white chocolate cookie', 'sweet'),
+('5', 'chips', 'salty'),
+('5', 'salad', 'veggie'),
+  ('5', 'salsa', 'spicy');
     
