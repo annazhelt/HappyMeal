@@ -26,10 +26,12 @@
         Username: <input type="text" name="username" size="36" />
 
     </div>
+    <br>
     <div>
         Password: <input type="password" name="password" size="36" />
 
     </div>
+    <br>
     <div>
         <input type="submit" value="Login" />
     </div>
