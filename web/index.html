@@ -108,7 +108,35 @@
         </div>
     </div>
 
+
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Update your order</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="aggregation2">Enter your order id: </label>
+                    <input type="text" name="order_id" placeholder="Order id"><br>
+                </div>
+                <br>
+                <p></p>
+                <div>
+                    <table id="orderResult" class="table">
+                    </table>
+                </div>
+                <button type="button" class="btn btn-success" onclick="showOrderDetails()">Show order details</button>
+                <button type="button" class="btn btn-default" onclick="submitUpdte()">Update order</button>
+                <button type="button" class="btn btn-default" onclick="clearOrderDetails()">Cancel</button>
+
+            </form>
+        </div>
+    </div>
+
 <script>
+
+
+
 
     function showRestaurants(){
 
@@ -217,6 +245,7 @@
     function clearNestedAggregationResult() {
         $("#nestedAggregationResult").html("");
     }
+
     function showNestedAggregationResult() {
         clearNestedAggregationResult();
         var aggregation = $("#aggregation2").val(); // values "max" "min"
@@ -230,24 +259,22 @@
             }
         })
                 .done(function(msg) {
+                    alert(msg)
                     var resultValue = JSON.parse(msg);
                     var headerRow = $("<tr/>");
                     var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);
                     var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
                     var headerColumnForPrice = $("<th/>").html("price").appendTo(headerRow);
                     $("#nestedAggregationResult").append(headerRow);
-
                     var resultRow;
                     var restaurantColumn;
                     var dishNameColumn;
                     var priceColumn;
                     for (var i = 0; i < resultValue.length; i++) {
                         var result = resultValue[i];
-
                         var restaurant = result["restaurant"];
                         var dishName = result["dishName"];
                         var price = result["price"];
-
                         resultRow = $("<tr/>");
                         restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow)
                         dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
@@ -255,9 +282,114 @@
                         $("#nestedAggregationResult").append(resultRow);
                     }
                 });
+    }
+
+    // show an order instance with updatable text fields
+
+
+    function submitOrder() {
+        var order_id = $("#order_id").val();
+        $.ajax({
+            method: "POST",
+            url: "UpdateOrderController.jsp",
+            data: {
+                id: order_id
+            }
+        })
+                .done(function(msg) {
+                    var resultValue = JSON.parse(msg);
+                    var headerRow = $("<tr/>");
+                    var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);
+                    var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
+                    var headerColumnForDeliveryAddress = $("<th/>").html("delivery address").appendTo(headerRow);
+                    var headerColumnForDeliveryMethod = $("<th/>").html("delivery method").appendTo(headerRow);
+                    var headerColumnForDeliveryTime = $("<th/>").html("delivery time").appendTo(headerRow);
+                    var headerColumnForDeliveryStatus = $("<th/>").html("delivery status").appendTo(headerRow);
+                    $("#orderResult").append(headerRow);
+
+                    var resultRow;
+                    var restaurantColumn;
+                    var dishNameColumn;
+                    var deliveryAddressColumn;
+                    var deliveryMethodColumn;
+                    var deliveryTimeColumn;
+                    var deliveryStatusColumn;
+
+                    var result = resultValue;
+
+                    var restaurant = result["restaurant"];
+                    var dishName = result["dname"];
+                    var deliveryAddress = result["delivery_address"];
+                    var deliveryMethod = result["delivery_method"];
+                    var deliveryTime = result["deivery_time"];
+                    var deliveryStatus = result["status"];
+
+                    resultRow = $("<tr/>");
+                    restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow)
+                    dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
+                    deliveryAddressColumn = $("<td/>").html(deliveryAddress).appendTo(resultRow)
+                    deliveryMethodColumn = $("<td/>").html(deliveryMethod).appendTo(resultRow)
+                    deliveryTimeColumn = $("<td/>").html(deliveryTime).appendTo(resultRow)
+                    deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow);
+                    $("#orderResult").append(resultRow);
+
+                });
 
     }
 
+    function clearOrderDetails() {
+        $("#orderResult").html("");
+    }
+    function showOrderDetails() {
+        clearOrderDetails();
+        var order_id = $("#order_id").val();
+        $.ajax({
+            method: "POST",
+            url: "UpdateOrderController.jsp",
+            data: {
+                id: order_id
+            }
+        })
+                .done(function(msg) {
+                    var resultValue = JSON.parse(msg);
+                    var headerRow = $("<tr/>");
+                    var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);
+                    var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
+                    var headerColumnForDeliveryAddress = $("<th/>").html("delivery address").appendTo(headerRow);
+                    var headerColumnForDeliveryMethod = $("<th/>").html("delivery method").appendTo(headerRow);
+                    var headerColumnForDeliveryTime = $("<th/>").html("delivery time").appendTo(headerRow);
+                    var headerColumnForDeliveryStatus = $("<th/>").html("delivery status").appendTo(headerRow);
+                    $("#orderResult").append(headerRow);
+
+                    var resultRow;
+                    var restaurantColumn;
+                    var dishNameColumn;
+                    var deliveryAddressColumn;
+                    var deliveryMethodColumn;
+                    var deliveryTimeColumn;
+                    var deliveryStatusColumn;
+
+                    var result = resultValue;
+
+                    var restaurant = result["restaurant"];
+                    var dishName = result["dname"];
+                    var deliveryAddress = result["delivery_address"];
+                    var deliveryMethod = result["delivery_method"];
+                    var deliveryTime = result["deivery_time"];
+                    var deliveryStatus = result["status"];
+
+                    resultRow = $("<tr/>");
+                    restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow)
+                    dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
+                    deliveryAddressColumn = $("<td/>").html(deliveryAddress).appendTo(resultRow)
+                    deliveryMethodColumn = $("<td/>").html(deliveryMethod).appendTo(resultRow)
+                    deliveryTimeColumn = $("<td/>").html(deliveryTime).appendTo(resultRow)
+                    deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow);
+                    $("#orderResult").append(resultRow);
+
+                });
+
+    }
 
     //requirement 1
     function clearResult() {
