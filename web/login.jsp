@@ -21,7 +21,7 @@
    }
 %>
 
-<form method="post" action="login">
+<form method="post" action="/login">
     <div>
         Username: <input type="text" name="username" size="36" />
 
