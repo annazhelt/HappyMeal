@@ -8,13 +8,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateOrderDB {
 
     private static PreparedStatement createOrderDetailsPreparedStatement(Connection conn, int id)
             throws SQLException {
 
-        String query = "select * from placeorder, orderdish where id = order_id and id = ?";
+        String query = "select user_name, delivery_address, delivery_time, delivery_method, current_status, rname, dish_name " +
+                "from placeorder p, orderdish o, restaurant r " +
+                "where p.id = order_id and p.id = ? and o.restaurant_id=r.id;";
 
         PreparedStatement preparedStatement = conn.prepareStatement(query);
         preparedStatement.setInt(1, id);
@@ -33,15 +37,15 @@ public class UpdateOrderDB {
         return preparedStatement;
     }
 
-    public static OrderDetailsObject getOrderDetails(int order_id) {
-        OrderDetailsObject object = new OrderDetailsObject();
+    public static List<OrderDetailsObject> getOrderDetails(int order_id) {
+        List<OrderDetailsObject> objectList = new ArrayList<>();
         try (
                 Connection conn = ConnectionUtility.getConnection();
                 PreparedStatement preparedStatement = createOrderDetailsPreparedStatement(conn, order_id);
                 ResultSet resultSet = preparedStatement.executeQuery();
         ) {
             while (resultSet.next()) {
-
+                OrderDetailsObject object = new OrderDetailsObject();
 
                 String user_name = resultSet.getString("user_name");
                 object.setUser_name(user_name);
@@ -55,19 +59,20 @@ public class UpdateOrderDB {
                 String delivery_time  = resultSet.getString("delivery_time");
                 object.setDelivery_time(delivery_time);
 
-                String status = resultSet.getString("status");
+                String status = resultSet.getString("current_status");
                 object.setStatus(status);
 
                 String rname = resultSet.getString("rname");
                 object.setRestaurantName(rname);
 
-                String dname = resultSet.getString("dname");
+                String dname = resultSet.getString("dish_name");
                 object.setDname(dname);
 
+                objectList.add(object);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return object;
+        return objectList;
     }
 }

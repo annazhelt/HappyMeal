@@ -147,8 +147,8 @@
         <div class="panel-body">
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="aggregation2">Enter your order id: </label>
-                    <input type="text" name="order_id" placeholder="Order id"><br>
+                    <label for="order">Enter your order id: </label>
+                    <input type="number" id="order" class="form-control" placeholder="Order id"/><br>
                 </div>
                 <br>
                 <p></p>
@@ -394,12 +394,13 @@
     }
     function showOrderDetails() {
         clearOrderDetails();
-        var order_id = $("#order_id").val();
+        var order = $("#order").val();
+
         $.ajax({
             method: "POST",
-            url: "UpdateOrderController.jsp",
+            url: "ShowOrderController.jsp",
             data: {
-                id: order_id
+                id: order
             }
         })
                 .done(function(msg) {
@@ -420,24 +421,24 @@
                     var deliveryMethodColumn;
                     var deliveryTimeColumn;
                     var deliveryStatusColumn;
+                    for (var i = 0; i < resultValue.length; i++) {
+                        var result = resultValue[i];
+                        var restaurant = result["rname"];
+                        var dishName = result["dish_name"];
+                        var deliveryAddress = result["delivery_address"];
+                        var deliveryMethod = result["delivery_method"];
+                        var deliveryTime = result["delivery_time"];
+                        var deliveryStatus = result["current_status"];
 
-                    var result = resultValue;
-
-                    var restaurant = result["restaurant"];
-                    var dishName = result["dname"];
-                    var deliveryAddress = result["delivery_address"];
-                    var deliveryMethod = result["delivery_method"];
-                    var deliveryTime = result["deivery_time"];
-                    var deliveryStatus = result["status"];
-
-                    resultRow = $("<tr/>");
-                    restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow)
-                    dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
-                    deliveryAddressColumn = $("<td/>").html(deliveryAddress).appendTo(resultRow)
-                    deliveryMethodColumn = $("<td/>").html(deliveryMethod).appendTo(resultRow)
-                    deliveryTimeColumn = $("<td/>").html(deliveryTime).appendTo(resultRow)
-                    deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow);
-                    $("#orderResult").append(resultRow);
+                        resultRow = $("<tr/>");
+                        restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow);
+                        dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow);
+                        deliveryAddressColumn = $("<td/>").html(deliveryAddress).appendTo(resultRow);
+                        deliveryMethodColumn = $("<td/>").html(deliveryMethod).appendTo(resultRow);
+                        deliveryTimeColumn = $("<td/>").html(deliveryTime).appendTo(resultRow);
+                        deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow);
+                        $("#orderResult").append(resultRow);
+                    }
 
                 });
 
