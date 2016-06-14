@@ -9,40 +9,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
- * Created by anna on 2016-06-10.
+ * Created by anna on 2016-06-13.
  */
-@WebServlet(name = "RestaurantServlet")
-public class RestaurantServlet extends HttpServlet {
-    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+@WebServlet(name = "DivisionServlet")
+public class DivisionServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
-//"<p>" + resNames[i] +
-//        "<button type='button' id = '"
-//        + resNames[i] + "' onclick='showComment()'> Show Comments</button> " +
-//        "<button id = '"+resNames[i]+"a' onclick='addComment()'>Add Comment </button> <div id = '"+
-//resNames[i]+"c'></div></div></p>"
-
-    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String text = "";
-
         Connection conn = null;
         Statement stmt = null;
         try{
+
+            String name = request.getParameter("resName");
+            //text += name;
             conn = ConnectionUtility.getConnection();
             stmt = conn.createStatement();
             String sql;
-            sql = "SELECT * FROM Restaurant";
+            sql = "select rname from Restaurant r where not exists " +
+                    "(select tname from tag t where not exists " +
+                    "(select tag_name from dishtag dt where dt.restaurant_id = r.id and t.tname = dt.tag_name))";
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()){
-
-                String name = rs.getString("rname");
-                text += constructTableEntry(name);
-
+                String rname = rs.getString("rname");
+                text+= "<p>"+rname+"</p>";
             }
             //STEP 6: Clean-up environment
             rs.close();
@@ -73,13 +72,5 @@ public class RestaurantServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
         PrintWriter pw = response.getWriter();
         pw.write(text);
-
-    }
-
-    private  String constructTableEntry(String name){
-        String tableEntry = "";
-        tableEntry += "<tr id='"+name+"'> <td>" + name+"</td>" +
-                "<td> <button onclick='showComment()'>Show Comments</button> </td> </tr>";
-        return tableEntry;
     }
 }

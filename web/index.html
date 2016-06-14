@@ -65,15 +65,30 @@
         </div>
     </div>
 
-    <div>
-        <button type="button" class="btn btn-default" id = "showRestaurant" onclick="showRestaurants()">Show Restaurants</button>
-    </div>
-    <div id="restaurants">
-    <table style = "width:50%" id="restaurantTable" cellpadding="10">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Show All Restaurants!</h3>
+        </div>
+        <div class="panel-body">
 
-    </table>
+            <button type="button" class="btn btn-primary" id = "showRestaurant" onclick="showRestaurants()">Show Restaurants</button>
+
+            <div id="restaurants">
+                <table id="restaurantTable" class="table">
+
+                </table>
+            </div>
+        </div>
     </div>
 
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Show all restaurants which offer all tags</h3>
+        </div>
+        <div class="panel-body" id = "division">
+            <button type="button" class="btn btn-success" id="division-button" onclick="divideRestaurantByTags()">Restaurants which offer all tags!</button>
+        </div>
+    </div>
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -107,8 +122,27 @@
             </form>
         </div>
     </div>
+    <form action="/logout" method="get">
+        <input type="submit" value="Logout" />
+    </form>
+
 
 <script>
+
+    function divideRestaurantByTags(){
+        if ($("#division-button").hasClass("down")){
+            $("#division p").remove();
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "/showDivision",
+                success: function (response) {
+                    $("#division").append(response)
+                }
+            })
+        }
+        $("#division-button").toggleClass("down")
+    }
 
     function showRestaurants(){
 
@@ -125,6 +159,8 @@
             }
             $("#showRestaurant").toggleClass("down")
     }
+
+
 
     function addComment() {
         var e = window.event,
@@ -154,10 +190,14 @@
 
         var rname = btn.closest("tr").id;
         var row = btn.closest("tr")
-        var tableRow = row.nextSibling
-        var table = tableRow.firstChild
+        //var tableRow = row.nextSibling
+        //var table = tableRow.firstChild
         if ($(btn).hasClass("down")){
-            $(table).html("");
+            var crows = document.getElementsByClassName(rname);
+            while(crows[0]){
+                crows[0].parentNode.removeChild(crows[0]);
+            }
+
         } else {
             $.ajax({
                 method: "GET",
@@ -166,7 +206,7 @@
                     resName: rname
                 },
                 success: function (response) {
-                    $(table).append(response);
+                    $(row).after(response);
                 }
 
             });
@@ -230,6 +270,7 @@
             }
         })
                 .done(function(msg) {
+                    alert(msg)
                     var resultValue = JSON.parse(msg);
                     var headerRow = $("<tr/>");
                     var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);

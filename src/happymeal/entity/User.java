@@ -5,6 +5,8 @@ public class User {
     private String password;
     private boolean isAdminFlag;
 
+    public User(){}
+
     public String getUser_name() {
         return user_name;
     }
