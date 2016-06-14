@@ -6,128 +6,167 @@
 </head>
 <body>
 
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">Find dishes</h3>
-        </div>
-        <div class="panel-body">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="columnName">Display name and </label>
-                    <select id="columnName" class="form-control">
-                        <option value="restaurant">Restaurant</option>
-                        <option value="price">Price</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="priceThreshold">for Dishes whose price is greater than </label>
-                    <input type="number" min="0" class="form-control" id="priceThreshold" >
-                </div>
-                <br>
-                <p></p>
-                <div>
-
-                    <table id="resultTable" class="table">
-
-                    </table>
-                </div>
-                <button type="button" class="btn btn-primary" onclick="showResult()">Show Result</button>
-                <button type="button" class="btn btn-default" onclick="clearResult()">Clear Result</button>
-
-            </form>
-        </div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Find dishes</h3>
     </div>
+    <div class="panel-body">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="columnName">Display name and </label>
+                <select id="columnName" class="form-control">
+                    <option value="restaurant">Restaurant</option>
+                    <option value="price">Price</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="priceThreshold">for Dishes whose price is greater than </label>
+                <input type="number" min="0" class="form-control" id="priceThreshold" >
+            </div>
+            <br>
+            <p></p>
+            <div>
 
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <h3 class="panel-title">Find the most/leat expensive dish(es)</h3>
-        </div>
-        <div class="panel-body">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="aggregation">Display the </label>
-                    <select id="aggregation" class="form-control">
-                        <option value="max">most</option>
-                        <option value="min">least</option>
-                    </select>
-                    <label for="aggregation">expensive dish </label>
-                </div>
-                <br>
-                <p></p>
-                <div>
-                    <table id="aggregationResult" class="table">
-                    </table>
-                </div>
-                <button type="button" class="btn btn-success" onclick="showAggregationResult()">Show Result</button>
-                <button type="button" class="btn btn-default" onclick="clearAggregationResult()">Clear Result</button>
-
-            </form>
-        </div>
-    </div>
-
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">Show All Restaurants!</h3>
-        </div>
-        <div class="panel-body">
-
-            <button type="button" class="btn btn-primary" id = "showRestaurant" onclick="showRestaurants()">Show Restaurants</button>
-
-            <div id="restaurants">
-                <table id="restaurantTable" class="table">
+                <table id="resultTable" class="table">
 
                 </table>
             </div>
+            <button type="button" class="btn btn-primary" onclick="showResult()">Show Result</button>
+            <button type="button" class="btn btn-default" onclick="clearResult()">Clear Result</button>
+
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Find the most/leat expensive dish(es)</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="aggregation">Display the </label>
+                <select id="aggregation" class="form-control">
+                    <option value="max">most</option>
+                    <option value="min">least</option>
+                </select>
+                <label for="aggregation">expensive dish </label>
+            </div>
+            <br>
+            <p></p>
+            <div>
+                <table id="aggregationResult" class="table">
+                </table>
+            </div>
+            <button type="button" class="btn btn-success" onclick="showAggregationResult()">Show Result</button>
+            <button type="button" class="btn btn-default" onclick="clearAggregationResult()">Clear Result</button>
+
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Delete Dish for Restaurant</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-inline">
+            Restaurant Name: <input id="restaurantName" type="text" placeholder="restaurant"/>
+            Dish Name: <input id="dishName" type="text" placeholder="dish"/>
+            <button type="button" class="btn btn-primary" id="deleteDishBtn" onclick="deleteDish()"> Delete Dish! </button>
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Show All Restaurants!</h3>
+    </div>
+    <div class="panel-body">
+
+        <button type="button" class="btn btn-primary" id = "showRestaurant" onclick="showRestaurants()">Show Restaurants</button>
+
+        <div id="restaurants">
+            <table id="restaurantTable" class="table">
+
+            </table>
         </div>
     </div>
+</div>
 
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <h3 class="panel-title">Show all restaurants which offer all tags</h3>
-        </div>
-        <div class="panel-body" id = "division">
-            <button type="button" class="btn btn-success" id="division-button" onclick="divideRestaurantByTags()">Restaurants which offer all tags!</button>
-        </div>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Show all restaurants which offer all tags</h3>
     </div>
+    <div class="panel-body" id = "division">
+        <button type="button" class="btn btn-success" id="division-button" onclick="divideRestaurantByTags()">Restaurants which offer all tags!</button>
+    </div>
+</div>
 
-    <div class="panel panel-primary">
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">List the most/least expensive dishes for each restaurant that is on average cheaper than other restaurants, located in selected city</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="aggregation2">Display the </label>
+                <select id="aggregation2" class="form-control">
+                    <option value="max">most</option>
+                    <option value="min">least</option>
+                </select>
+                <label for="city">expensive dish for restaurants in </label>
+                <select id="city" class="form-control">
+                    <option value="vancouver">Vancouver</option>
+                    <option value="calgary">Calgary</option>
+                    <option value="ottawa">Ottawa</option>
+                    <option value="victoria">Victoria</option>
+                </select>
+            </div>
+            <br>
+            <p></p>
+            <div>
+                <table id="nestedAggregationResult" class="table">
+                </table>
+            </div>
+            <button type="button" class="btn btn-success" onclick="showNestedAggregationResult()">Show Result</button>
+            <button type="button" class="btn btn-default" onclick="clearNestedAggregationResult()">Clear Result</button>
+
+        </form>
+    </div>
+</div>
+<form action="/logout" method="get">
+    <input type="submit" value="Logout" />
+</form>
+
+
+    <div class="panel panel-warning">
         <div class="panel-heading">
-            <h3 class="panel-title">List the most/least expensive dishes for each restaurant that is on average cheaper than other restaurants, located in selected city</h3>
+            <h3 class="panel-title">Update your order</h3>
         </div>
         <div class="panel-body">
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="aggregation2">Display the </label>
-                    <select id="aggregation2" class="form-control">
-                        <option value="max">most</option>
-                        <option value="min">least</option>
-                    </select>
-                    <label for="city">expensive dish for restaurants in </label>
-                    <select id="city" class="form-control">
-                        <option value="vancouver">Vancouver</option>
-                        <option value="calgary">Calgary</option>
-                        <option value="ottawa">Ottawa</option>
-                        <option value="victoria">Victoria</option>
-                    </select>
+                    <label for="order">Enter your order id: </label>
+                    <input type="number" id="order" class="form-control" placeholder="Order id"/><br>
                 </div>
                 <br>
                 <p></p>
                 <div>
-                    <table id="nestedAggregationResult" class="table">
+                    <table id="orderResult" class="table">
                     </table>
                 </div>
-                <button type="button" class="btn btn-success" onclick="showNestedAggregationResult()">Show Result</button>
-                <button type="button" class="btn btn-default" onclick="clearNestedAggregationResult()">Clear Result</button>
+                <button type="button" class="btn btn-success" onclick="showOrderDetails()">Show order details</button>
+                <button type="button" class="btn btn-default" onclick="submitUpdte()">Update order</button>
+                <button type="button" class="btn btn-default" onclick="clearOrderDetails()">Cancel</button>
 
             </form>
         </div>
     </div>
-    <form action="/logout" method="get">
-        <input type="submit" value="Logout" />
-    </form>
 
 
-<script>
+
+<script type="text/javascript">
 
     function divideRestaurantByTags(){
         if ($("#division-button").hasClass("down")){
@@ -144,23 +183,24 @@
         $("#division-button").toggleClass("down")
     }
 
+
+
+
     function showRestaurants(){
 
-            if ($("#showRestaurant").hasClass("down")){
-                $("#restaurantTable").html("");
-            } else {
-                $.ajax({
-                    type: "GET",
-                    url: "/showRestaurants",
-                    success: function (response) {
-                        $("#restaurantTable").append(response);
-                    }
-                })
-            }
-            $("#showRestaurant").toggleClass("down")
+        if ($("#showRestaurant").hasClass("down")){
+            $("#restaurantTable").html("");
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "/showRestaurants",
+                success: function (response) {
+                    $("#restaurantTable").append(response);
+                }
+            })
+        }
+        $("#showRestaurant").toggleClass("down")
     }
-
-
 
     function addComment() {
         var e = window.event,
@@ -228,27 +268,27 @@
                 aggregation : aggregation
             }
         })
-            .done(function(msg) {
-                var resultValue = JSON.parse(msg);
-                var headerRow = $("<tr/>");
-                var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
-                var headerColumnForPrice = $("<th/>").html("price").appendTo(headerRow);
-                $("#aggregationResult").append(headerRow);
+                .done(function(msg) {
+                    var resultValue = JSON.parse(msg);
+                    var headerRow = $("<tr/>");
+                    var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
+                    var headerColumnForPrice = $("<th/>").html("price").appendTo(headerRow);
+                    $("#aggregationResult").append(headerRow);
 
-                var resultRow;
-                var dishNameColumn;
-                var priceColumn;
-                for (var i = 0; i < resultValue.length; i++) {
-                    var result = resultValue[i];
-                    var dishName = result["dishName"];
-                    var price = result["price"];
+                    var resultRow;
+                    var dishNameColumn;
+                    var priceColumn;
+                    for (var i = 0; i < resultValue.length; i++) {
+                        var result = resultValue[i];
+                        var dishName = result["dishName"];
+                        var price = result["price"];
 
-                    resultRow = $("<tr/>");
-                    dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
-                    priceColumn = $("<td/>").html(price).appendTo(resultRow);
-                    $("#aggregationResult").append(resultRow);
-                }
-            });
+                        resultRow = $("<tr/>");
+                        dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
+                        priceColumn = $("<td/>").html(price).appendTo(resultRow);
+                        $("#aggregationResult").append(resultRow);
+                    }
+                });
 
     }
 
@@ -270,6 +310,7 @@
             }
         })
                 .done(function(msg) {
+
                     var resultValue = JSON.parse(msg);
                     var headerRow = $("<tr/>");
                     var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);
@@ -295,9 +336,114 @@
                         $("#nestedAggregationResult").append(resultRow);
                     }
                 });
+    }
+    // show an order instance with updatable text fields
+
+
+    function submitOrder() {
+        var order_id = $("#order_id").val();
+        $.ajax({
+            method: "POST",
+            url: "UpdateOrderController.jsp",
+            data: {
+                id: order_id
+            }
+        })
+                .done(function(msg) {
+                    var resultValue = JSON.parse(msg);
+                    var headerRow = $("<tr/>");
+                    var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);
+                    var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
+                    var headerColumnForDeliveryAddress = $("<th/>").html("delivery address").appendTo(headerRow);
+                    var headerColumnForDeliveryMethod = $("<th/>").html("delivery method").appendTo(headerRow);
+                    var headerColumnForDeliveryTime = $("<th/>").html("delivery time").appendTo(headerRow);
+                    var headerColumnForDeliveryStatus = $("<th/>").html("delivery status").appendTo(headerRow);
+                    $("#orderResult").append(headerRow);
+
+                    var resultRow;
+                    var restaurantColumn;
+                    var dishNameColumn;
+                    var deliveryAddressColumn;
+                    var deliveryMethodColumn;
+                    var deliveryTimeColumn;
+                    var deliveryStatusColumn;
+
+                    var result = resultValue;
+
+                    var restaurant = result["restaurant"];
+                    var dishName = result["dname"];
+                    var deliveryAddress = result["delivery_address"];
+                    var deliveryMethod = result["delivery_method"];
+                    var deliveryTime = result["deivery_time"];
+                    var deliveryStatus = result["status"];
+
+                    resultRow = $("<tr/>");
+                    restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow)
+                    dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
+                    deliveryAddressColumn = $("<td/>").html(deliveryAddress).appendTo(resultRow)
+                    deliveryMethodColumn = $("<td/>").html(deliveryMethod).appendTo(resultRow)
+                    deliveryTimeColumn = $("<td/>").html(deliveryTime).appendTo(resultRow)
+                    deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow);
+                    $("#orderResult").append(resultRow);
+
+                });
 
     }
 
+    function clearOrderDetails() {
+        $("#orderResult").html("");
+    }
+    function showOrderDetails() {
+        clearOrderDetails();
+        var order = $("#order").val();
+
+        $.ajax({
+            method: "POST",
+            url: "ShowOrderController.jsp",
+            data: {
+                id: order
+            }
+        })
+                .done(function(msg) {
+                    var resultValue = JSON.parse(msg);
+                    var headerRow = $("<tr/>");
+                    var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);
+                    var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
+                    var headerColumnForDeliveryAddress = $("<th/>").html("delivery address").appendTo(headerRow);
+                    var headerColumnForDeliveryMethod = $("<th/>").html("delivery method").appendTo(headerRow);
+                    var headerColumnForDeliveryTime = $("<th/>").html("delivery time").appendTo(headerRow);
+                    var headerColumnForDeliveryStatus = $("<th/>").html("delivery status").appendTo(headerRow);
+                    $("#orderResult").append(headerRow);
+
+                    var resultRow;
+                    var restaurantColumn;
+                    var dishNameColumn;
+                    var deliveryAddressColumn;
+                    var deliveryMethodColumn;
+                    var deliveryTimeColumn;
+                    var deliveryStatusColumn;
+                    for (var i = 0; i < resultValue.length; i++) {
+                        var result = resultValue[i];
+                        var restaurant = result["rname"];
+                        var dishName = result["dish_name"];
+                        var deliveryAddress = result["delivery_address"];
+                        var deliveryMethod = result["delivery_method"];
+                        var deliveryTime = result["delivery_time"];
+                        var deliveryStatus = result["current_status"];
+
+                        resultRow = $("<tr/>");
+                        restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow);
+                        dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow);
+                        deliveryAddressColumn = $("<td/>").html(deliveryAddress).appendTo(resultRow);
+                        deliveryMethodColumn = $("<td/>").html(deliveryMethod).appendTo(resultRow);
+                        deliveryTimeColumn = $("<td/>").html(deliveryTime).appendTo(resultRow);
+                        deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow);
+                        $("#orderResult").append(resultRow);
+                    }
+
+                });
+
+    }
 
     //requirement 1
     function clearResult() {
@@ -308,13 +454,13 @@
         var columnName = $("#columnName").val();
         var priceThreshold = $("#priceThreshold").val();
         $.ajax({
-                    method: "POST",
-                    url: "DishController.jsp",
-                    data: {
-                        columnName : columnName,
-                        priceThreshold : priceThreshold
-                    }
-                })
+            method: "POST",
+            url: "DishController.jsp",
+            data: {
+                columnName : columnName,
+                priceThreshold : priceThreshold
+            }
+        })
                 .done(function(msg) {
                     var resultValue = JSON.parse(msg);
                     var columnName = $("#columnName").val();
@@ -338,6 +484,29 @@
                     }
                 });
 
+    }
+
+    function deleteDish() {
+        var restaurantName = $("#restaurantName").val();
+        var dishName = $("#dishName").val();
+        $.ajax ({
+            method: "POST",
+
+            url: "DeleteDishController.jsp",
+            data: {
+                restaurantName: restaurantName,
+                dishName: dishName
+            },
+
+            success: function (result) {
+                alert ("deletion successful");
+                $("#restaurantName").val("");
+                $("#dishName").val("");
+            },
+            error: function() {
+                alert("Unable to delete");
+            }
+        });
     }
 </script>
 </body>
