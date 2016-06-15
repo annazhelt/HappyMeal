@@ -16,6 +16,11 @@ public class Dish {
         this.price = price;
     }
 
+    public Dish(int restaurantID, String name){
+        this.restaurantID = restaurantID;
+        this.name = name;
+    }
+
     public int getRestaurantID() {
         return restaurantID;
     }

@@ -28,7 +28,7 @@ public class NewRestaurantServlet extends HttpServlet {
         Restaurant r = null;
         String htmlFormName = request.getParameter("htmlFormName");
 
-        if (htmlFormName.equals("delete")){
+        if (htmlFormName != null && htmlFormName.equals("delete")){
             int id = Integer.parseInt(request.getParameter("rid"));
             r = new Restaurant(id);
             rdao.delete(r);

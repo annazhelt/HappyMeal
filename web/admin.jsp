@@ -12,6 +12,7 @@
 <%@ page import="happymeal.db.DishDAO" %>
 <%@ page import="happymeal.entity.Dish" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
 
 <html>
 <head>
@@ -24,6 +25,10 @@
     RestaurantDAO rdao = new RestaurantDAO();
     DishDAO ddao = new DishDAO();
     List<Restaurant> restaurants = rdao.findAllWithAdmin(session.getAttribute("username").toString());
+    HashMap<Integer, List<Dish>> resDishes= new HashMap();
+    for (Restaurant r : restaurants){
+        resDishes.put(r.getId(), ddao.findAllWithRID(r.getId()));
+    }
 %>
 
 <%
@@ -46,8 +51,7 @@
 
                 out.println("<div id='"+rname+"' class='accordion-section-content'>");
 
-                List<Dish> dishesByRes = ddao.findAllWithRID(r.getId());
-                for (Dish d : dishesByRes) {
+                for (Dish d : resDishes.get(r.getId())) {
                     out.println("<p>" + d.getName() + " " + d.getPrice()+ "</p>");
                 }
                 out.println("</div></div>");
@@ -112,6 +116,25 @@
         <input type="submit" value="Submit!" />
     </div>
 </form>
+
+<form action="/newDish" method="post" name="delete">
+    <input type="hidden" name="htmlFormName" value="delete"/>
+    <h1>Delete your  Old Dishes from Your Restaurants</h1>
+    <div>
+        Choose the Dish:
+        <select name="resAndDish">
+            <%
+                for (Restaurant r: restaurants){
+                    for (Dish d: resDishes.get(r.getId())){
+                        out.println("<option value=" + r.getId()+ "," + d.getName()+ ">"+
+                                r.getRname()+ " " + d.getName()+"</option>");
+                    }
+                }
+            %>
+        </select>
+
+        <input type="submit" value="Submit!" />
+    </div>
 
 <form action="/logout" method="get">
     <input type="submit" class="btn btn-danger" value="Logout" />
