@@ -5,7 +5,9 @@
     <title>Happy Meal</title>
 </head>
 <body>
-
+<form action="/logout" method="get">
+    <input type="submit" class="btn btn-danger" value="Logout" />
+</form>
 <div class="panel panel-info">
     <div class="panel-heading">
         <h3 class="panel-title">Find dishes</h3>
@@ -38,7 +40,7 @@
     </div>
 </div>
 
-<div class="panel panel-success">
+<div class="panel panel-info">
     <div class="panel-heading">
         <h3 class="panel-title">Find the most/leat expensive dish(es)</h3>
     </div>
@@ -58,37 +60,14 @@
                 <table id="aggregationResult" class="table">
                 </table>
             </div>
-            <button type="button" class="btn btn-success" onclick="showAggregationResult()">Show Result</button>
+            <button type="button" class="btn btn-primary" onclick="showAggregationResult()">Show Result</button>
             <button type="button" class="btn btn-default" onclick="clearAggregationResult()">Clear Result</button>
 
         </form>
     </div>
 </div>
 
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">Delete Dish for Restaurant</h3>
-    </div>
-    <div class="panel-body">
-        <form class="form-inline">
-            Restaurant Name: <input id="restaurantName" type="text" placeholder="restaurant"/>
-            Dish Name: <input id="dishName" type="text" placeholder="dish"/>
-            <button type="button" class="btn btn-primary" id="deleteDishBtn" onclick="deleteDish()"> Delete Dish! </button>
-        </form>
-    </div>
-</div>
 
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">Delete Restaurant Record</h3>
-    </div>
-    <div class="panel-body">
-        <form class="form-inline">
-            Restaurant Name: <input id="restaurantToDelete" type="text" placeholder="restaurant"/>
-            <button type="button" class="btn btn-primary" id="deleteRestBtn" onclick="deleteRestaurant()"> Delete Restaurant! </button>
-        </form>
-    </div>
-</div>
 
 <div class="panel panel-info">
     <div class="panel-heading">
@@ -115,7 +94,7 @@
     </div>
 </div>
 
-<div class="panel panel-primary">
+<div class="panel panel-success">
     <div class="panel-heading">
         <h3 class="panel-title">List the most/least expensive dishes for each restaurant that is on average cheaper than other restaurants, located in selected city</h3>
     </div>
@@ -147,9 +126,7 @@
         </form>
     </div>
 </div>
-<form action="/logout" method="get">
-    <input type="submit" value="Logout" />
-</form>
+
 
 
     <div class="panel panel-warning">
@@ -168,7 +145,7 @@
                     <table id="orderResult" class="table">
                     </table>
                 </div>
-                <button type="button" class="btn btn-success" onclick="showOrderDetails()">Show order details</button>
+                <button type="button" class="btn btn-warning" onclick="showOrderDetails()">Show order details</button>
                 <button type="button" class="btn btn-default" onclick="submitUpdte()">Update order</button>
                 <button type="button" class="btn btn-default" onclick="clearOrderDetails()">Cancel</button>
 
@@ -176,6 +153,31 @@
         </div>
     </div>
 
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Delete Dish for Restaurant</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-inline">
+            Restaurant Name: <input id="restaurantName" class="form-control" type="text" placeholder="restaurant"/>
+            Dish Name: <input id="dishName" class="form-control" type="text" placeholder="dish"/>
+            <button type="button" class="btn btn-danger" id="deleteDishBtn" onclick="deleteDish()"> Delete Dish! </button>
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Delete Restaurant Record</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-inline">
+            Restaurant Name: <input id="restaurantToDelete" class="form-control" type="text" placeholder="restaurant"/>
+            <button type="button" class="btn btn-danger" id="deleteRestBtn" onclick="deleteRestaurant()"> Delete Restaurant! </button>
+        </form>
+    </div>
+</div>
 
 
 <script type="text/javascript">
@@ -222,7 +224,7 @@
         if ($(btn).hasClass("down")){
 
         }else {
-            $(btn).addClass("down")
+            $(btn).addClass("down");
             rname = rnamec.substr(0, rnamec.length-1)
             //alert(rname);
             elem = document.getElementById(rname+"c");

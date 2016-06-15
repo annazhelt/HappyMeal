@@ -79,7 +79,7 @@ public class RestaurantServlet extends HttpServlet {
     private  String constructTableEntry(String name){
         String tableEntry = "";
         tableEntry += "<tr id='"+name+"'> <td>" + name+"</td>" +
-                "<td> <button onclick='showComment()'>Show Comments</button> </td> </tr>";
+                "<td> <button class='btn btn-default' onclick='showComment()'>Show Comments</button> </td> </tr>";
         return tableEntry;
     }
 }
