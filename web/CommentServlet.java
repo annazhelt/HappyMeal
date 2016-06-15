@@ -37,6 +37,8 @@ public class CommentServlet extends HttpServlet {
             sql = "select user_name, rating, comments from restaurant, review where restaurant.id = review.restaurant_id and restaurant.rname = '"+ name + "'";
             ResultSet rs = stmt.executeQuery(sql);
 
+            text += "<tr class='"+name+"'> <th>Reviewer </th> <th>Rating</th><th>Comment</th> </tr>";
+
             while(rs.next()){
                 String reviewer = rs.getString("user_name");
                 int rating = rs.getInt("rating");
