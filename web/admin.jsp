@@ -63,59 +63,65 @@
         </div>
     </div>
         <br>
-    <div class="panel panel-default">
+    <div class="panel panel-default col-xs-6 col-sm-4">
         <div class="panel-heading">
             <h3 class="panel-title">Create a New Restaurant!</h3>
         </div>
         <div class="panel-body">
             <form method="post" action="/newRestaurant">
-                <div>
-                    Restaurant Name: <input type="text" name="name" size="36" maxlength="10" />
+                <fieldset class="form-group">
+                    <label>Restaurant Name</label>
+                    <input type="text" class="form-control" name="name" size="36" maxlength="10" />
 
-                </div>
-                <div>
-                     Restaurant Phone: <input type="tel" name="tel" size="36" maxlength="10"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Restaurant Phone</label>
+                     <input type="tel" class="form-control" name="tel" size="36" maxlength="10"/>
 
-                </div>
-                <div>
-                    Restaurant Address: <input type="text" name="address" size="36" maxlength="200"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Restaurant Address</label>
+                    <input type="text" class="form-control" name="address" size="36" maxlength="200"/>
 
-                </div>
-                </br>
-                <div>
-                    <input type="submit" value="Submit!" />
-                </div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Submit</button>
 
             </form>
         </div>
     </div>
-    <br>
-    <div class="panel panel-default">
+    <div class="panel panel-default col-xs-6 col-sm-4">
         <div class="panel-heading">
             <h3 class="panel-title">Add Dishes To Your Restaurants!</h3>
         </div>
         <div class="panel-body">
             <form method="post" action="/newDish">
-                <div>
-                Choose Your Restaurant: <select name="rid">
-                <%
-                    for (Restaurant r: restaurants){
-                        out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
-                    }
-                %>
-                </select>
-                </div>
-                <div>
-                Dish Name:<input type="text" name="dname" size="36" maxLength="100"/>
-                </div>
-                <div>
-                    Dish Price:<input type="text" name="price" size="36"/>
-                </div>
-                <input type="submit" value="Submit!" />
+                <fieldset class="form-group">
+                    <label>Choose Your Restaurant </label>
+                    <select name="rid" class="form-control">
+                    <%
+                        for (Restaurant r: restaurants){
+                            out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
+                        }
+                    %>
+                    </select>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>
+                        Dish Name
+                    </label>
+                <input type="text" name="dname" size="36" maxLength="100" class="form-control"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>
+                        Price
+                    </label>
+                    <input type="text" name="price" size="36" class="form-control"/>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
-
+<div class="col-xs-6 col-sm-4">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Delete Your Old Restaurants!</h3>
@@ -123,31 +129,32 @@
         <div class="panel-body">
             <form action="/newRestaurant" method="post" name="delete">
                 <input type="hidden" name="htmlFormName" value="delete"/>
-                <div>
-                    Choose Your Restaurant:
-                    <select name="rid">
+                <fieldset class="form-group">
+                    <label>Choose Your Restaurant </label>
+                    <select name="rid" class="form-control">
                     <%
                         for (Restaurant r: restaurants){
                             out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
                         }
                     %>
                     </select>
-                    <input type="submit" value="Submit!" />
-                </div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Submit</button>
+
             </form>
         </div>
     </div>
-
+<br>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Delete your  Old Dishes from Your Restaurants</h3>
+            <h3 class="panel-title">Delete your  Old Dishes!</h3>
         </div>
         <div class="panel-body">
             <form action="/newDish" method="post" name="delete">
                 <input type="hidden" name="htmlFormName" value="delete"/>
-                <div>
-                    Choose the Dish:
-                    <select name="resAndDish">
+                <fieldset class="form-group">
+                    <label>Choose the Dish </label>
+                    <select name="resAndDish" class="form-control">
                         <%
                             for (Restaurant r: restaurants){
                                 for (Dish d: resDishes.get(r.getId())){
@@ -157,13 +164,12 @@
                             }
                         %>
                     </select>
-
-                    <input type="submit" value="Submit!" />
-                </div>
+                    </fieldset>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
-
+    </div>
 
     <form action="/logout" method="get">
         <input type="submit" class="btn btn-danger" value="Logout" />

@@ -21,7 +21,7 @@ public class AdminFilter implements Filter {
         HttpSession session = request.getSession(false);
         boolean loggedIn = session != null && session.getAttribute("username") != null;
         boolean isAdmin = false;
-        if (session.getAttribute("isAdmin") != null)
+        if (session != null && session.getAttribute("isAdmin") != null)
             isAdmin = session.getAttribute("isAdmin").toString().equals("true");
         if (isAdmin){
             chain.doFilter(req, resp);
