@@ -5,7 +5,16 @@ public class Dish {
     private String name;
     private double price;
 
+
     private Restaurant restaurant;
+
+    public Dish(){}
+
+    public Dish(int restaurantID, String name, double price) {
+        this.restaurantID = restaurantID;
+        this.name = name;
+        this.price = price;
+    }
 
     public int getRestaurantID() {
         return restaurantID;

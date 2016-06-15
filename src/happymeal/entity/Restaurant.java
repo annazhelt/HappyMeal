@@ -10,7 +10,7 @@ public class Restaurant {
     private String rname;
     private String address;
     private String admin_name;
-    private int phone;
+    private String phone;
     private List<Dish> dishes;
 
     public int getId() {
@@ -25,11 +25,11 @@ public class Restaurant {
         this.admin_name = admin_name;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
