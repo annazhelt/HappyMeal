@@ -24,9 +24,11 @@ public class UserDAO {
     {
         String username = rs.getString("uname");
         String password = rs.getString("password");
+        boolean isAdminFlag = rs.getString("isAdminFlag").equals("Y");
         User user = new User();
         user.setUser_name(username);
         user.setPassword(password);
+        user.setAdminFlag(isAdminFlag);
         return user;
     }
 

@@ -57,7 +57,14 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String uname = user.getUser_name();
         session.setAttribute("username", uname);
-        String url = "/index.html";
-        resp.sendRedirect(url);
+        boolean isAdmin = user.isAdminFlag();
+        session.setAttribute("isAdmin", isAdmin);
+        if (!isAdmin) {
+            String url = "/index.html";
+            resp.sendRedirect(url);
+        } else {
+            String url = "/admin.jsp";
+            resp.sendRedirect(url);
+        }
     }
 }
