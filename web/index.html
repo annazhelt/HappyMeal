@@ -142,11 +142,15 @@
                 <br>
                 <p></p>
                 <div>
-                    <table id="orderResult" class="table">
+                    <table id="orderResult1" class="table">
+                    </table>
+                </div>
+                <div>
+                    <table id="orderResult2" class="table">
                     </table>
                 </div>
                 <button type="button" class="btn btn-warning" onclick="showOrderDetails()">Show order details</button>
-                <button type="button" class="btn btn-default" onclick="submitUpdte()">Update order</button>
+                <button type="button" class="btn btn-default" onclick="updateOrder()">Update order</button>
                 <button type="button" class="btn btn-default" onclick="clearOrderDetails()">Cancel</button>
 
             </form>
@@ -352,60 +356,33 @@
                 });
     }
     // show an order instance with updatable text fields
-
-
-    function submitOrder() {
-        var order_id = $("#order_id").val();
+    function updateOrder() {
+        alert("start");
+        var order_id = $("#order").val();
+        var delivery_method = $("#select_method").val();
+        var delivery_address = $("#addressUpdate").val();
+        var delivery_time = $("#timeUpdate").val();
         $.ajax({
             method: "POST",
             url: "UpdateOrderController.jsp",
             data: {
-                id: order_id
+                id: order_id,
+                method: delivery_method,
+                address: delivery_address,
+                time: delivery_time
             }
         })
                 .done(function(msg) {
                     var resultValue = JSON.parse(msg);
-                    var headerRow = $("<tr/>");
-                    var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);
-                    var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
-                    var headerColumnForDeliveryAddress = $("<th/>").html("delivery address").appendTo(headerRow);
-                    var headerColumnForDeliveryMethod = $("<th/>").html("delivery method").appendTo(headerRow);
-                    var headerColumnForDeliveryTime = $("<th/>").html("delivery time").appendTo(headerRow);
-                    var headerColumnForDeliveryStatus = $("<th/>").html("delivery status").appendTo(headerRow);
-                    $("#orderResult").append(headerRow);
-
-                    var resultRow;
-                    var restaurantColumn;
-                    var dishNameColumn;
-                    var deliveryAddressColumn;
-                    var deliveryMethodColumn;
-                    var deliveryTimeColumn;
-                    var deliveryStatusColumn;
-
-                    var result = resultValue;
-
-                    var restaurant = result["restaurant"];
-                    var dishName = result["dname"];
-                    var deliveryAddress = result["delivery_address"];
-                    var deliveryMethod = result["delivery_method"];
-                    var deliveryTime = result["deivery_time"];
-                    var deliveryStatus = result["status"];
-
-                    resultRow = $("<tr/>");
-                    restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow)
-                    dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow)
-                    deliveryAddressColumn = $("<td/>").html(deliveryAddress).appendTo(resultRow)
-                    deliveryMethodColumn = $("<td/>").html(deliveryMethod).appendTo(resultRow)
-                    deliveryTimeColumn = $("<td/>").html(deliveryTime).appendTo(resultRow)
-                    deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow);
-                    $("#orderResult").append(resultRow);
-
+                    var n = resultValue["number_of_rows_updated"];
+                    alert(n + " rows successfully updated.")
                 });
 
     }
 
     function clearOrderDetails() {
-        $("#orderResult").html("");
+        $("#orderResult1").html("");
+        $("#orderResult2").html("");
     }
     function showOrderDetails() {
         clearOrderDetails();
@@ -420,42 +397,176 @@
         })
                 .done(function(msg) {
                     var resultValue = JSON.parse(msg);
-                    var headerRow = $("<tr/>");
-                    var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow);
-                    var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow);
-                    var headerColumnForDeliveryAddress = $("<th/>").html("delivery address").appendTo(headerRow);
-                    var headerColumnForDeliveryMethod = $("<th/>").html("delivery method").appendTo(headerRow);
-                    var headerColumnForDeliveryTime = $("<th/>").html("delivery time").appendTo(headerRow);
-                    var headerColumnForDeliveryStatus = $("<th/>").html("delivery status").appendTo(headerRow);
-                    $("#orderResult").append(headerRow);
+                    var user_name = resultValue[0]["user_name"];
+                    var logged_in_username = resultValue[0]["logged_in_username"];
+                    var delivery_status = resultValue[0]["current_status"];
+                    var delivery_method = resultValue[0]["delivery_method"];
 
-                    var resultRow;
-                    var restaurantColumn;
-                    var dishNameColumn;
-                    var deliveryAddressColumn;
-                    var deliveryMethodColumn;
-                    var deliveryTimeColumn;
-                    var deliveryStatusColumn;
-                    for (var i = 0; i < resultValue.length; i++) {
-                        var result = resultValue[i];
-                        var restaurant = result["rname"];
-                        var dishName = result["dish_name"];
-                        var deliveryAddress = result["delivery_address"];
-                        var deliveryMethod = result["delivery_method"];
-                        var deliveryTime = result["delivery_time"];
-                        var deliveryStatus = result["current_status"];
+                    if (user_name == logged_in_username){
+                        if (delivery_status == "delivered" || delivery_status == "reviewed" || delivery_status == "ready to pick up"){
+                            var headerRow1 = $("<tr/>");
+                            var headerRow2 = $("<tr/>");
+                            var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow1);
+                            var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow1);
 
-                        resultRow = $("<tr/>");
-                        restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow);
-                        dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow);
-                        deliveryAddressColumn = $("<td/>").html(deliveryAddress).appendTo(resultRow);
-                        deliveryMethodColumn = $("<td/>").html(deliveryMethod).appendTo(resultRow);
-                        deliveryTimeColumn = $("<td/>").html(deliveryTime).appendTo(resultRow);
-                        deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow);
-                        $("#orderResult").append(resultRow);
+                            var headerColumnForUserName = $("<th/>").html("user name").appendTo(headerRow2);
+                            var headerColumnForDeliveryStatus = $("<th/>").html("delivery status").appendTo(headerRow2);
+                            var headerColumnForDeliveryMethod = $("<th/>").html("delivery method").appendTo(headerRow2);
+                            var headerColumnForDeliveryAddress = $("<th name='deliveryAddr' style='visibility:visible;'/>").html("delivery address").appendTo(headerRow2);
+                            var headerColumnForDeliveryTime = $("<th name='deliveryTime' style='visibility:visible;'/>").html("delivery time").appendTo(headerRow2);
+
+                            $("#orderResult1").append(headerRow1);
+                            $("#orderResult2").append(headerRow2);
+
+                            var resultRow1;
+                            var resultRow2;
+
+                            var restaurantColumn;
+                            var dishNameColumn;
+
+                            var deliveryAddressColumn;
+                            var deliveryMethodColumn;
+                            var deliveryTimeColumn;
+                            var deliveryStatusColumn;
+                            var deliveryMethodSelect;
+
+                            for (var i = 0; i < resultValue.length; i++) {
+                                var result = resultValue[i];
+                                var userName = result["user_name"];
+                                var restaurant = result["rname"];
+                                var dishName = result["dish_name"];
+                                var deliveryStatus = result["current_status"];
+                                var deliveryMethod = result["delivery_method"];
+                                var deliveryAddress = result["delivery_address"];
+                                var deliveryTime = result["delivery_time"];
+
+                                resultRow1 = $("<tr/>");
+
+                                restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow1);
+                                dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow1);
+
+                                $("#orderResult1").append(resultRow1);
+
+                            }
+
+                            resultRow2 = $("<tr/>");
+                            userNameColumn = $("<td/>").html(userName).appendTo(resultRow2);
+                            deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow2);
+                            deliveryMethodColumn = $("<td/>").html(deliveryMethod).appendTo(resultRow2);
+                            deliveryAddressColumn = $("<td name='deliveryAddr' style='visibility:visible;'/>").html(deliveryAddress).appendTo(resultRow2);
+                            deliveryTimeColumn = $("<td name='deliveryTime' style='visibility:visible;'/>").html(deliveryTime).appendTo(resultRow2);
+                            $("#orderResult2").append(resultRow2);
+                            if (delivery_method == "pick up"){
+                                changeVisibility();
+                            }
+                        } else {
+                            var headerRow1 = $("<tr/>");
+                            var headerRow2 = $("<tr/>");
+                            var headerColumnForRestauant = $("<th/>").html("restaurant").appendTo(headerRow1);
+                            var headerColumnForDishName = $("<th/>").html("dish name").appendTo(headerRow1);
+
+                            var headerColumnForUserName = $("<th/>").html("user name").appendTo(headerRow2);
+                            var headerColumnForDeliveryStatus = $("<th/>").html("delivery status").appendTo(headerRow2);
+                            var headerColumnForDeliveryMethod = $("<th/>").html("delivery method").appendTo(headerRow2);
+                            var headerColumnForDeliveryAddress = $("<th name='deliveryAddr' style='visibility:visible;'/>").html("delivery address").appendTo(headerRow2);
+                            var headerColumnForDeliveryTime = $("<th name='deliveryTime' style='visibility:visible;'/>").html("delivery time").appendTo(headerRow2);
+
+                            $("#orderResult1").append(headerRow1);
+                            $("#orderResult2").append(headerRow2);
+
+                            var resultRow1;
+                            var resultRow2;
+
+                            var restaurantColumn;
+                            var dishNameColumn;
+
+                            var userNameColumn;
+                            var deliveryAddressColumn;
+                            var deliveryMethodColumn;
+                            var deliveryTimeColumn;
+                            var deliveryStatusColumn;
+                            var deliveryMethodSelect;
+                            var addressTextBox;
+                            var timeTextBox;
+
+                            for (var i = 0; i < resultValue.length; i++) {
+                                var result = resultValue[i];
+                                var userName = result["user_name"];
+                                var restaurant = result["rname"];
+                                var dishName = result["dish_name"];
+                                var deliveryStatus = result["current_status"];
+                                var deliveryMethod = result["delivery_method"];
+                                var deliveryAddress = result["delivery_address"];
+                                var deliveryTime = result["delivery_time"];
+
+                                resultRow1 = $("<tr/>");
+
+                                restaurantColumn = $("<td/>").html(restaurant).appendTo(resultRow1);
+                                dishNameColumn = $("<td/>").html(dishName).appendTo(resultRow1);
+
+                                $("#orderResult1").append(resultRow1);
+
+                            }
+
+                            resultRow2 = $("<tr/>");
+                            userNameColumn = $("<td/>").html(userName).appendTo(resultRow2);
+                            deliveryStatusColumn = $("<td/>").html(deliveryStatus).appendTo(resultRow2);
+                            deliveryMethodColumn = $("<td/>").appendTo(resultRow2);
+                            deliveryAddressColumn = $("<td name='deliveryAddr' style='visibility:visible;'/>").appendTo(resultRow2);
+                            deliveryTimeColumn = $("<td name='deliveryTime' style='visibility:visible;'/>").appendTo(resultRow2);
+                            deliveryMethodSelect = $("<select id='select_method' class='form-control' onchange='changeMethod()'>" +
+                                    "<option value ='deliver'>deliver</option>" +
+                                    "<option value='pick up'>pick up</option>" +
+                                    "</select>").appendTo(deliveryMethodColumn);
+                            addressTextBox = $("<input name='deliveryAddr' style='visibility:visible;' type='text' id='addressUpdate'</input>").appendTo(deliveryAddressColumn);
+                            timeTextBox = $("<input name='deliveryTime' style='visibility:visible;' type='text' id='timeUpdate'</input>").appendTo(deliveryTimeColumn);
+                            $("#orderResult2").append(resultRow2);
+                            $("input[type=text]").width(330);
+                            if (deliveryMethod == "pick up" || $("#select_method").val() == "pick up"){
+                                changeVisibility();
+                            }
+                            document.getElementById('addressUpdate').value = deliveryAddress;
+                            document.getElementById('timeUpdate').value = deliveryTime;
+                            document.getElementById('select_method').value = deliveryMethod;
+                            //document.getElementById('select_method').setAttribute("onchange", changeVisibility(this));
+                        }
+                    } else {
+                        alert("There is no order matching your request");
                     }
-
                 });
+    }
+    function changeMethod() {
+        var val = $("#select_method").val();
+        if (val == "pick up"){
+            changeVisibility();
+        }
+        else{
+            var x = document.getElementsByName("deliveryAddr");
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].style.visibility = "visible";
+            }
+            var y = document.getElementsByName("deliveryTime");
+            var j;
+            for (j = 0; j < x.length; j++) {
+                y[j].style.visibility = "visible";
+            }
+        }
+
+
+    }
+
+    function changeVisibility() {
+        var x = document.getElementsByName("deliveryAddr");
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.visibility = "collapse";
+        }
+        var y = document.getElementsByName("deliveryTime");
+        var j;
+        for (j = 0; j < x.length; j++) {
+            y[j].style.visibility = "collapse";
+        }
 
     }
 

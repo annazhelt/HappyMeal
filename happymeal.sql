@@ -76,7 +76,7 @@ CREATE TABLE placeorder (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(30) NOT NULL,
     delivery_address VARCHAR(40) NULL,
-    delivery_time DATETIME,
+    delivery_time DATETIME NULL,
     delivery_method VARCHAR(20) NOT NULL,
     current_status VARCHAR(20) NOT NULL,
     FOREIGN KEY (user_name)
@@ -87,8 +87,10 @@ insert into placeorder (user_name, delivery_address, delivery_time, delivery_met
     ('Anna-c', '0101 CS building, Vancouver', '2016-06-02 18:00:00', 'deliver', 'delivered'),
     ('Yvonne-c', '0202 Garden City Rd, Richmond', '2016-06-01 19:30:00', 'deliver', 'reviewed'),
     ('Joe-c', '0303 McKim Way, Richmond', '2016-06-01 17:30:00', 'deliver', 'reviewed'),
-    ('Joe-c', '', '2016-06-02 18:15:00', 'pick up', 'ready to pick up'),
-    ('Vittoria-c', '0505 3rd Rd, Richmond ', '2016-06-02 20:30:00', 'deliver', 'preparing');
+    ('Joe-c', '', NULL, 'pick up', 'ready to pick up'),
+    ('Vittoria-c', '0505 3rd Rd, Richmond ', '2016-06-02 20:30:00', 'deliver', 'preparing'),
+    ('Joe-c', '', NULL, 'pick up', 'preparing'),
+    ('Joe-c', 'McKim Way, Richmond', '2016-06-12 17:30:00', 'deliver', 'preparing');
 CREATE TABLE restaurant (
     id INT PRIMARY KEY AUTO_INCREMENT,
     rname VARCHAR(20) NOT NULL,
@@ -119,8 +121,8 @@ CREATE TABLE dish (
         ON DELETE CASCADE
 );
 insert into dish (restaurant_id, dname, price)values 
-	('13', 'fish taco','8.60'),
-    ('13', 'chicken salad', '3.25'),
+	('2', 'fish taco','8.60'),
+    ('2', 'chicken salad', '3.25'),
 	('3', 'Toufu', '4.00'),
 	('3', 'green tee icecream', '2.00'),
     ('4', 'Roast ribs', '18.30'),
@@ -129,15 +131,15 @@ insert into dish (restaurant_id, dname, price)values
 	('5', 'crispy chicken sandwich', '5.50'),
 	('5', 'sausage sandwich', '5.50'),
 	('5', 'white chocolate cookie', '5.50'),
-  ('5','chips', '5.00'),
-  ('5', 'salsa', '5.00'),
-  ('5', 'salad', '10.00'),
-  ('6', 'chicken salad', '5.00'),
-  ('6', 'club sandwich', '6.00'),
-  ('7', 'dark chocolate cookie', '2.50'),
-  ('7', 'cheesecake', '5.50'),
-  ('8', 'spaghetti with meat balls', '11.50'),
-  ('8', 'black forest cake', '5.50');
+	('5', 'chips', '5.00'),
+	('5', 'salsa', '5.00'),
+	('5', 'salad', '10.00'),
+	('6', 'chicken salad', '5.00'),
+	('6', 'club sandwich', '6.00'),
+	('7', 'dark chocolate cookie', '2.50'),
+	('7', 'cheesecake', '5.50'),
+	('8', 'spaghetti with meat balls', '11.50'),
+	('8', 'black forest cake', '5.50');
 
 CREATE TABLE orderdish (
     order_id INT NOT NULL,
@@ -156,16 +158,21 @@ insert into orderdish values
     ('1', '3', 'Toufu'),
     ('1', '3', 'green tee icecream'),
     ('2', '3', 'green tee icecream'),
-    ('2', '13', 'chicken salad'),
-    ('2', '13', 'fish taco'),
+    ('2', '2', 'chicken salad'),
+    ('2', '2', 'fish taco'),
     ('3', '5', 'iced lemonade'),
     ('3', '5', 'crispy chicken sandwich'),
     ('3', '5', 'white chocolate cookie'),
-    ('4', '13', 'fish taco'),
-    ('4', '13', 'chicken salad'),
+    ('4', '2', 'fish taco'),
+    ('4', '2', 'chicken salad'),
     ('4', '3', 'green tee icecream'),
     ('5', '3', 'green tee icecream'),
-    ('5', '4', 'veggie burger');
+    ('5', '4', 'veggie burger'),
+    ('6', '5', 'iced lemonade'),
+    ('6', '5', 'crispy chicken sandwich'),
+    ('6', '5', 'white chocolate cookie'),
+    ('7', '5', 'crispy chicken sandwich'),
+    ('7', '5', 'white chocolate cookie');
 CREATE TABLE dishingredient (
     restaurant_id INT,
     dish_name VARCHAR(100),
@@ -176,14 +183,14 @@ CREATE TABLE dishingredient (
         ON DELETE CASCADE
 );
 insert into dishingredient values 
-	('13', 'fish taco','fish'),
-	('13', 'fish taco','carrot'),
-	('13', 'fish taco','onion'),
-	('13', 'fish taco','ketchup'),
-    ('13', 'chicken salad', 'chicken'),
-    ('13', 'chicken salad', 'black pepper'),
-    ('13', 'chicken salad', 'almond'),
-    ('13', 'chicken salad', 'lemon'),
+	('2', 'fish taco','fish'),
+	('2', 'fish taco','carrot'),
+	('2', 'fish taco','onion'),
+	('2', 'fish taco','ketchup'),
+    ('2', 'chicken salad', 'chicken'),
+    ('2', 'chicken salad', 'black pepper'),
+    ('2', 'chicken salad', 'almond'),
+    ('2', 'chicken salad', 'lemon'),
 	('3', 'Toufu', 'toufu'),
 	('3', 'Toufu', 'green onion'),
 	('3', 'green tee icecream', 'milk'),
@@ -233,7 +240,7 @@ CREATE TABLE exclude (
 );
 insert into exclude (order_id, restaurant_id, dish_name, ingre_name)values
     ('1', '4', 'veggie burger', 'carrot'),
-    ('13', '2', 'chicken salad', 'black pepper'),
+    ('2', '2', 'chicken salad', 'black pepper'),
     ('3', '5', 'iced lemonade', 'ice'),
     ('3', '5', 'crispy chicken sandwich', 'cheese'),
     ('5', '4', 'veggie burger', 'mushroom');
@@ -251,12 +258,12 @@ CREATE TABLE review (
         ON DELETE CASCADE
 );
 insert into review (user_name, restaurant_id, rating, comments) values 
-    ('Anna-c', '13', '8', 'nice and delicious'),
+    ('Anna-c', '2', '8', 'nice and delicious'),
     ('Anna-c', '3', '5', 'too spicy'),
     ('Yvonne-c', '3', '8', 'icecream is good'),
-    ('Yvonne-c', '13', '5', 'not spicy enough'),
+    ('Yvonne-c', '2', '5', 'not spicy enough'),
     ('Joe-c', '5', '7', 'too sweet'),
-    ('Joe-c', '13', '8', 'salad is good'),
+    ('Joe-c', '2', '8', 'salad is good'),
     ('Vittoria-c', '4', '6', 'just soso');
 CREATE TABLE tag (
     tname VARCHAR(20) PRIMARY KEY
@@ -301,9 +308,9 @@ CREATE TABLE dishtag (
         ON DELETE CASCADE
 );
 insert into dishtag values 
-	('13', 'fish taco','hot'),
-	('13', 'fish taco','spicy'),
-    ('13', 'chicken salad', 'sweet'),
+	('2', 'fish taco','hot'),
+	('2', 'fish taco','spicy'),
+    ('2', 'chicken salad', 'sweet'),
 	('3', 'Toufu', 'veggie'),
 	('3', 'Toufu', 'spicy'),
 	('3', 'green tee icecream', 'cold'),
