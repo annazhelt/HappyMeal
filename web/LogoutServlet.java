@@ -17,6 +17,8 @@ public class LogoutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        session.setAttribute("username", null);
+        session.setAttribute("isAdmin", null);
         session.invalidate();
         String url = "login";
         response.sendRedirect(url);
