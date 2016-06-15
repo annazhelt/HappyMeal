@@ -13,30 +13,38 @@
 </head>
 <body>
 <body>
-<h1>Login</h1>
+<div class="container">
+    <h1 class="page-header">HappyMeal Login</h1>
     <%
    String message = (String) request.getAttribute("message");
    if (message != null) {
       out.println("<p>" + message + "</p>");
    }
 %>
-
+    <div class="col-xs-12 col-md-4 ">
 <form method="post" action="/login">
-    <div>
-        Username: <input type="text" name="username" size="36" />
+    <fieldset class="form-group">
+        <label>
+            Username:
+        </label>
+        <input type="text" name="username" size="36" class="form-control"/>
 
-    </div>
-    <br>
-    <div>
-        Password: <input type="password" name="password" size="36" />
+    </fieldset>
 
-    </div>
-    <br>
-    <div>
-        <input type="submit" value="Login" />
-    </div>
+    <fieldset class="form-group">
+        <label>
+            Password:
+        </label>
+        <input type="password" name="password" size="36" class="form-control"/>
+    </fieldset>
+
+    <fieldset class="form-group">
+        <input type="submit" class='btn btn-primary' value="Login" />
+    </fieldset>
 
 </form>
+        </div>
+    </div>
 </html>
 </body>
 </html>
