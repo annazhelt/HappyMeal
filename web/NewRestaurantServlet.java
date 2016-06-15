@@ -59,42 +59,4 @@ public class NewRestaurantServlet extends HttpServlet {
 
     }
 
-    Connection conn = null;
-//        PreparedStatement stmt = null;
-//        try{
-//
-//            conn = ConnectionUtility.getConnection();
-//            String sql;
-//            sql = "insert into Restaurant (rname, admin_name, phone, address) values (?, ?, ?, ?)";
-//            stmt = conn.prepareStatement(sql);
-//            stmt.setString(1, rname);
-//            stmt.setString(2, admin);
-//            stmt.setString(3,tel);
-//            stmt.setString(4,address);
-//            System.out.println(stmt);
-//            stmt.executeUpdate();
-//
-//            //STEP 6: Clean-up environment
-//            stmt.close();
-//            conn.close();
-//        }catch(SQLException se){
-//            //Handle errors for JDBC
-//            se.printStackTrace();
-//        }catch(Exception e){
-//            //Handle errors for Class.forName
-//            e.printStackTrace();
-//        }finally{
-//            //finally block used to close resources
-//            try{
-//                if(stmt!=null)
-//                    stmt.close();
-//            }catch(SQLException se2){
-//            }// nothing we can do
-//            try{
-//                if(conn!=null)
-//                    conn.close();
-//            }catch(SQLException se){
-//                se.printStackTrace();
-//            }//end finally try
-//        }//end try
 }

@@ -37,109 +37,138 @@
         out.println("<p>" + message + "</p>");
     }
 %>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">My Restaurants and Dishes</h3>
+        </div>
+        <div class="panel-body">
+            <div id="accordion">
+            <%
+                for (Restaurant r: restaurants) {
+                    //out.println("<div class='panel panel-default'>");
+                    out.println("<div class='accordion-section'>");
+                    String rname = r.getRname();
+                    rname = rname.replaceAll("\\s","");
+                    out.println("<a class='accordion-section-title' href='#"+rname+"'>"+r.getRname()+"</a>");
 
-    <div>
-        <h1>My Restaurants and Dishes</h1>
-        <div id="accordion">
-        <%
-            for (Restaurant r: restaurants) {
-                //out.println("<div class='panel panel-default'>");
-                out.println("<div class='accordion-section'>");
-                String rname = r.getRname();
-                rname = rname.replaceAll("\\s","");
-                out.println("<a class='accordion-section-title' href='#"+rname+"'>"+r.getRname()+"</a>");
+                    out.println("<div id='"+rname+"' class='accordion-section-content'>");
 
-                out.println("<div id='"+rname+"' class='accordion-section-content'>");
-
-                for (Dish d : resDishes.get(r.getId())) {
-                    out.println("<p>" + d.getName() + " " + d.getPrice()+ "</p>");
+                    for (Dish d : resDishes.get(r.getId())) {
+                        out.println("<p>" + d.getName() + " " + d.getPrice()+ "</p>");
+                    }
+                    out.println("</div></div>");
                 }
-                out.println("</div></div>");
-            }
-        %>
+            %>
+            </div>
+        </div>
+    </div>
+        <br>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Create a New Restaurant!</h3>
+        </div>
+        <div class="panel-body">
+            <form method="post" action="/newRestaurant">
+                <div>
+                    Restaurant Name: <input type="text" name="name" size="36" maxlength="10" />
+
+                </div>
+                <div>
+                     Restaurant Phone: <input type="tel" name="tel" size="36" maxlength="10"/>
+
+                </div>
+                <div>
+                    Restaurant Address: <input type="text" name="address" size="36" maxlength="200"/>
+
+                </div>
+                </br>
+                <div>
+                    <input type="submit" value="Submit!" />
+                </div>
+
+            </form>
         </div>
     </div>
     <br>
-<form method="post" action="/newRestaurant">
-    <h1>Create a new Restaurant!</h1>
-    <div>
-        Restaurant Name: <input type="text" name="name" size="36" maxlength="10" />
-
-    </div>
-    <div>
-         Restaurant Phone: <input type="tel" name="tel" size="36" maxlength="10"/>
-
-    </div>
-    <div>
-        Restaurant Address: <input type="text" name="address" size="36" maxlength="200"/>
-
-    </div>
-    </br>
-    <div>
-        <input type="submit" value="Submit!" />
-    </div>
-
-</form>
-<br>
-<form method="post" action="/newDish">
-    <h1>Add Dishes To Your Restaurants!</h1>
-    <div>
-    Choose Your Restaurant: <select name="rid">
-    <%
-        for (Restaurant r: restaurants){
-            out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
-        }
-    %>
-    </select>
-    </div>
-    <div>
-    Dish Name:<input type="text" name="dname" size="36" maxLength="100"/>
-    </div>
-    <div>
-        Dish Price:<input type="text" name="price" size="36"/>
-    </div>
-    <input type="submit" value="Submit!" />
-</form>
-
-<form action="/newRestaurant" method="post" name="delete">
-    <input type="hidden" name="htmlFormName" value="delete"/>
-    <h1>Delete your  Old Restaurants</h1>
-    <div>
-        Choose Your Restaurant:
-        <select name="rid">
-        <%
-            for (Restaurant r: restaurants){
-                out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
-            }
-        %>
-        </select>
-        <input type="submit" value="Submit!" />
-    </div>
-</form>
-
-<form action="/newDish" method="post" name="delete">
-    <input type="hidden" name="htmlFormName" value="delete"/>
-    <h1>Delete your  Old Dishes from Your Restaurants</h1>
-    <div>
-        Choose the Dish:
-        <select name="resAndDish">
-            <%
-                for (Restaurant r: restaurants){
-                    for (Dish d: resDishes.get(r.getId())){
-                        out.println("<option value=" + r.getId()+ "," + d.getName()+ ">"+
-                                r.getRname()+ " " + d.getName()+"</option>");
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Add Dishes To Your Restaurants!</h3>
+        </div>
+        <div class="panel-body">
+            <form method="post" action="/newDish">
+                <div>
+                Choose Your Restaurant: <select name="rid">
+                <%
+                    for (Restaurant r: restaurants){
+                        out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
                     }
-                }
-            %>
-        </select>
-
-        <input type="submit" value="Submit!" />
+                %>
+                </select>
+                </div>
+                <div>
+                Dish Name:<input type="text" name="dname" size="36" maxLength="100"/>
+                </div>
+                <div>
+                    Dish Price:<input type="text" name="price" size="36"/>
+                </div>
+                <input type="submit" value="Submit!" />
+            </form>
+        </div>
     </div>
 
-<form action="/logout" method="get">
-    <input type="submit" class="btn btn-danger" value="Logout" />
-</form>
-    </body>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Delete Your Old Restaurants!</h3>
+        </div>
+        <div class="panel-body">
+            <form action="/newRestaurant" method="post" name="delete">
+                <input type="hidden" name="htmlFormName" value="delete"/>
+                <div>
+                    Choose Your Restaurant:
+                    <select name="rid">
+                    <%
+                        for (Restaurant r: restaurants){
+                            out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
+                        }
+                    %>
+                    </select>
+                    <input type="submit" value="Submit!" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Delete your  Old Dishes from Your Restaurants</h3>
+        </div>
+        <div class="panel-body">
+            <form action="/newDish" method="post" name="delete">
+                <input type="hidden" name="htmlFormName" value="delete"/>
+                <div>
+                    Choose the Dish:
+                    <select name="resAndDish">
+                        <%
+                            for (Restaurant r: restaurants){
+                                for (Dish d: resDishes.get(r.getId())){
+                                    out.println("<option value=" + r.getId()+ "," + d.getName()+ ">"+
+                                            r.getRname()+ " " + d.getName()+"</option>");
+                                }
+                            }
+                        %>
+                    </select>
+
+                    <input type="submit" value="Submit!" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <form action="/logout" method="get">
+        <input type="submit" class="btn btn-danger" value="Logout" />
+    </form>
+</body>
 
 <!--
 <div>
