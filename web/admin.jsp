@@ -38,7 +38,8 @@
         out.println("<p>" + message + "</p>");
     }
 %>
-    <div class="panel panel-default">
+<div class="container">
+    <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">My Restaurants and Dishes</h3>
         </div>
@@ -66,7 +67,7 @@
         <br>
 
     <div class="col-xs-12 col-md-6">
-        <div class="panel panel-default">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">Create a New Restaurant!</h3>
             </div>
@@ -87,7 +88,7 @@
                     <input type="text" class="form-control" name="address" size="36" maxlength="200"/>
 
                 </fieldset>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
 
                 </form>
             </div>
@@ -95,7 +96,7 @@
     </div>
 
 <div class="col-xs-12 col-md-6 ">
-    <div class="panel panel-default">
+    <div class="panel panel-warning">
         <div class="panel-heading">
             <h3 class="panel-title">Add Dishes To Your Restaurants!</h3>
         </div>
@@ -123,14 +124,14 @@
                     </label>
                     <input type="text" name="price" size="36" class="form-control"/>
                 </fieldset>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-warning">Submit</button>
             </form>
         </div>
     </div>
     </div>
 
         <div class="col-xs-12 col-md-6">
-            <div class="panel panel-default">
+            <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h3 class="panel-title">Delete Your Old Restaurants!</h3>
                 </div>
@@ -147,7 +148,7 @@
                                 %>
                             </select>
                         </fieldset>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-warning">Submit</button>
 
                     </form>
                 </div>
@@ -156,7 +157,7 @@
 
 
         <div class="col-xs-12 col-md-6">
-    <div class="panel panel-default">
+    <div class="panel panel-success">
         <div class="panel-heading">
             <h3 class="panel-title">Delete your  Old Dishes!</h3>
         </div>
@@ -176,7 +177,7 @@
                         %>
                     </select>
                     </fieldset>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
@@ -189,6 +190,7 @@
     <form action="/logout" method="get">
         <input type="submit" class="btn btn-danger" value="Logout" />
     </form>
+</div>
 </body>
 
 <!--
