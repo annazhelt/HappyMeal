@@ -96,6 +96,10 @@
     </div>
     <input type="submit" value="Submit!" />
 </form>
+
+<form action="/logout" method="get">
+    <input type="submit" class="btn btn-danger" value="Logout" />
+</form>
     </body>
 
 <!--

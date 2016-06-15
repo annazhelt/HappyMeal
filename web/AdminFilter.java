@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by anna on 2016-06-14.
  */
-@WebFilter(filterName = "AdminFilter")
+@WebFilter("/admin.jsp")
 public class AdminFilter implements Filter {
     public void destroy() {
     }
@@ -19,11 +19,15 @@ public class AdminFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession(false);
-        boolean isAdmin = session != null && session.getAttribute("isAdmin").equals(true);
+        boolean loggedIn = session != null && session.getAttribute("username") != null;
+        boolean isAdmin = false;
+        if (session.getAttribute("isAdmin") != null)
+            isAdmin = session.getAttribute("isAdmin").toString().equals("true");
         if (isAdmin){
             chain.doFilter(req, resp);
         } else {
-
+            request.setAttribute("message","Need admin priveleges to view this page ");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }
 
