@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UpdateOrderDB {
 
     private static PreparedStatement createOrderDetailsPreparedStatement(Connection conn, int id)
@@ -26,14 +27,30 @@ public class UpdateOrderDB {
     }
 
     private static PreparedStatement createOrderUpdatePreparedStatement(Connection conn, int oid, String deliveryMethod,
-                                                                        String deliveryTime, String deliveryAddress,
-                                                                        String dname, int rid)
+                                                                        String deliveryTime, String deliveryAddress)
             throws SQLException {
 
-        String query = "select * from placeorder, orderdish where id = order_id and id = ?";
+        String query = "";
+        if (deliveryMethod == "deliver"){
+            query = "update placeorder " +
+                    "set delivery_method = 'deliver', delivery_time = ?, delivery_address=?" +
+                    "where id = ?;";
+        } else if (deliveryMethod == "pick up"){
+            query = "update placeorder " +
+                    "set delivery_method = 'pick up', delivery_time = null, delivery_address=null" +
+                    "where id = ?;";
+        }
+
+        System.out.println(query);
 
         PreparedStatement preparedStatement = conn.prepareStatement(query);
-        preparedStatement.setInt(1, oid);
+        if (deliveryMethod == "deliver"){
+            preparedStatement.setString(1, deliveryTime);
+            preparedStatement.setString(2, deliveryAddress);
+            preparedStatement.setInt(3, oid);
+        } else if (deliveryMethod == "pick up"){
+            preparedStatement.setInt(1, oid);
+        }
         return preparedStatement;
     }
 
@@ -74,5 +91,20 @@ public class UpdateOrderDB {
             ex.printStackTrace();
         }
         return objectList;
+    }
+
+    public static int updateOrder(int oid, String deliveryMethod,
+                                   String deliveryTime, String deliveryAddress) {
+        int n = 0;
+        try (
+                Connection conn = ConnectionUtility.getConnection();
+                PreparedStatement preparedStatement = createOrderUpdatePreparedStatement(conn, oid,
+                        deliveryMethod, deliveryTime, deliveryAddress);
+        ) {
+            n = preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return n;
     }
 }

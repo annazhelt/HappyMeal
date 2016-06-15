@@ -87,7 +87,7 @@ insert into placeorder (user_name, delivery_address, delivery_time, delivery_met
     ('Anna-c', '0101 CS building, Vancouver', '2016-06-02 18:00:00', 'deliver', 'delivered'),
     ('Yvonne-c', '0202 Garden City Rd, Richmond', '2016-06-01 19:30:00', 'deliver', 'reviewed'),
     ('Joe-c', '0303 McKim Way, Richmond', '2016-06-01 17:30:00', 'deliver', 'reviewed'),
-    ('Joe-c', '', '2016-06-02 18:15:00', 'pick up', 'ready to pick up'),
+    ('Joe-c', '', '', 'pick up', 'ready to pick up'),
     ('Vittoria-c', '0505 3rd Rd, Richmond ', '2016-06-02 20:30:00', 'deliver', 'preparing');
 CREATE TABLE restaurant (
     id INT PRIMARY KEY AUTO_INCREMENT,
