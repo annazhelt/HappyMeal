@@ -31,24 +31,24 @@ public class UpdateOrderDB {
             throws SQLException {
 
         String query = "";
-        if (deliveryMethod == "deliver"){
+        if (deliveryMethod.equals("deliver")){
             query = "update placeorder " +
-                    "set delivery_method = 'deliver', delivery_time = ?, delivery_address=?" +
+                    "set delivery_method = 'deliver', delivery_time = ?, delivery_address=? " +
                     "where id = ?;";
-        } else if (deliveryMethod == "pick up"){
+        } else if (deliveryMethod.equals("pick up")){
             query = "update placeorder " +
-                    "set delivery_method = 'pick up', delivery_time = null, delivery_address=null" +
+                    "set delivery_method = 'pick up', delivery_time = null, delivery_address=null " +
                     "where id = ?;";
         }
 
-        System.out.println(query);
+        //System.out.println(query);
 
         PreparedStatement preparedStatement = conn.prepareStatement(query);
-        if (deliveryMethod == "deliver"){
+        if (deliveryMethod.equals("deliver")){
             preparedStatement.setString(1, deliveryTime);
             preparedStatement.setString(2, deliveryAddress);
             preparedStatement.setInt(3, oid);
-        } else if (deliveryMethod == "pick up"){
+        } else if (deliveryMethod.equals("pick up")){
             preparedStatement.setInt(1, oid);
         }
         return preparedStatement;
