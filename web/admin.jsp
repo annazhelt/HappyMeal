@@ -74,18 +74,18 @@
                         <label>Restaurant Name</label>
                         <input type="text" class="form-control" name="name" size="36" maxlength="10" />
 
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label>Restaurant Phone</label>
-                         <input type="tel" class="form-control" name="tel" size="36" maxlength="10"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Restaurant Phone</label>
+                     <input type="tel" class="form-control" name="tel" size="36" maxlength="10"/>
 
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label>Restaurant Address</label>
-                        <input type="text" class="form-control" name="address" size="36" maxlength="200"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Restaurant Address</label>
+                    <input type="text" class="form-control" name="address" size="36" maxlength="200"/>
 
-                    </fieldset>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Submit</button>
 
                 </form>
             </div>
@@ -125,8 +125,8 @@
             </div>
         </div>
     </div>
-
-    <div class="panel panel-default col-xs-6 col-sm-4">
+<div class="col-xs-6 col-sm-4">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Delete Your Old Restaurants!</h3>
         </div>
@@ -149,7 +149,7 @@
         </div>
     </div>
 
-    <div class="panel panel-default col-xs-6 col-sm-4">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Delete your  Old Dishes!</h3>
         </div>
