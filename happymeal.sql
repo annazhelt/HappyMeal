@@ -1,4 +1,4 @@
-xSET FOREIGN_KEY_CHECKS=0;
+SET FOREIGN_KEY_CHECKS=0;
 drop table if exists users cascade;
 drop table if exists admin;
 drop table if exists customer cascade;
