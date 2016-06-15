@@ -121,8 +121,8 @@
             </form>
         </div>
     </div>
-<div class="col-xs-6 col-sm-4">
-    <div class="panel panel-default">
+
+    <div class="panel panel-default col-xs-6 col-sm-4">
         <div class="panel-heading">
             <h3 class="panel-title">Delete Your Old Restaurants!</h3>
         </div>
@@ -144,8 +144,8 @@
             </form>
         </div>
     </div>
-<br>
-    <div class="panel panel-default">
+
+    <div class="panel panel-default col-xs-6 col-sm-4">
         <div class="panel-heading">
             <h3 class="panel-title">Delete your  Old Dishes!</h3>
         </div>

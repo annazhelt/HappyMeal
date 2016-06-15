@@ -91,6 +91,7 @@ public class RestaurantDAO {
             connection = ConnectionUtility.getConnection();
             String sql = "insert into Restaurant (rname, admin_name, phone, address) values (?,?,?,?)";
             statement = connection.prepareStatement(sql);
+            System.out.println(restaurant.getRname());
             statement.setString(1, restaurant.getRname());
             statement.setString(2, restaurant.getAdmin_name());
             statement.setString(3, restaurant.getPhone());

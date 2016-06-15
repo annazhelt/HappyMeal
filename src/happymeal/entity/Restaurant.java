@@ -20,7 +20,10 @@ public class Restaurant {
     }
 
     public Restaurant(String rname, String admin_name, String phone, String address) {
-
+        this.rname = rname;
+        this.admin_name = admin_name;
+        this.phone = phone;
+        this.address = address;
     }
 
 
