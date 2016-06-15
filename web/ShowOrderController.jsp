@@ -6,11 +6,13 @@
 
 
 <%
+    String logged_in_username = (String)request.getSession().getAttribute("username");
     int id = Integer.parseInt(request.getParameter("id"));
     List<OrderDetailsObject> objectList = UpdateOrderDB.getOrderDetails(id);
     JSONArray jsonArray = new JSONArray();
     for (OrderDetailsObject object : objectList){
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("logged_in_username", logged_in_username);
         jsonObject.put("user_name", object.getUser_name());
         jsonObject.put("delivery_address", object.getDelivery_address());
         jsonObject.put("delivery_method", object.getDelivery_method());
