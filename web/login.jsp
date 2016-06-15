@@ -18,7 +18,7 @@
     <%
    String message = (String) request.getAttribute("message");
    if (message != null) {
-      out.println("<p>" + message + "</p>");
+      out.println("<p class='alert'>" + message + "</p>");
    }
 %>
     <div class="col-xs-12 col-md-4 ">
