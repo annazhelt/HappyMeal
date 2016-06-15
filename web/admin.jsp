@@ -19,6 +19,7 @@
     <title>Manage All Restaurants!</title>
     <script src="/js/jquery.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.css"/>
+
 </head>
 <body>
 <%
@@ -63,7 +64,8 @@
         </div>
     </div>
         <br>
-    <div class="col-xs-6 col-sm-4">
+
+    <div class="col-xs-12 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Create a New Restaurant!</h3>
@@ -91,65 +93,68 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-6 col-sm-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Add Dishes To Your Restaurants!</h3>
-            </div>
-            <div class="panel-body">
-                <form method="post" action="/newDish">
-                    <fieldset class="form-group">
-                        <label>Choose Your Restaurant </label>
-                        <select name="rid" class="form-control">
+<div class="col-xs-12 col-md-6 ">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Add Dishes To Your Restaurants!</h3>
+        </div>
+        <div class="panel-body">
+            <form method="post" action="/newDish">
+                <fieldset class="form-group">
+                    <label>Choose Your Restaurant </label>
+                    <select name="rid" class="form-control">
                         <%
                             for (Restaurant r: restaurants){
                                 out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
                             }
                         %>
-                        </select>
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label>
-                            Dish Name
-                        </label>
-                    <input type="text" name="dname" size="36" maxLength="100" class="form-control"/>
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label>
-                            Price
-                        </label>
-                        <input type="text" name="price" size="36" class="form-control"/>
-                    </fieldset>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default col-xs-6 col-sm-4">
-        <div class="panel-heading">
-            <h3 class="panel-title">Delete Your Old Restaurants!</h3>
-        </div>
-        <div class="panel-body">
-            <form action="/newRestaurant" method="post" name="delete">
-                <input type="hidden" name="htmlFormName" value="delete"/>
-                <fieldset class="form-group">
-                    <label>Choose Your Restaurant </label>
-                    <select name="rid" class="form-control">
-                    <%
-                        for (Restaurant r: restaurants){
-                            out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
-                        }
-                    %>
                     </select>
                 </fieldset>
+                <fieldset class="form-group">
+                    <label>
+                        Dish Name
+                    </label>
+                    <input type="text" name="dname" size="36" maxLength="100" class="form-control"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>
+                        Price
+                    </label>
+                    <input type="text" name="price" size="36" class="form-control"/>
+                </fieldset>
                 <button type="submit" class="btn btn-primary">Submit</button>
-
             </form>
         </div>
     </div>
+    </div>
 
-    <div class="panel panel-default col-xs-6 col-sm-4">
+        <div class="col-xs-12 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Delete Your Old Restaurants!</h3>
+                </div>
+                <div class="panel-body">
+                    <form action="/newRestaurant" method="post" name="delete">
+                        <input type="hidden" name="htmlFormName" value="delete"/>
+                        <fieldset class="form-group">
+                            <label>Choose Your Restaurant </label>
+                            <select name="rid" class="form-control">
+                                <%
+                                    for (Restaurant r: restaurants){
+                                        out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
+                                    }
+                                %>
+                            </select>
+                        </fieldset>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-6">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Delete your  Old Dishes!</h3>
         </div>
@@ -173,7 +178,11 @@
             </form>
         </div>
     </div>
+
     </div>
+
+
+
 
     <form action="/logout" method="get">
         <input type="submit" class="btn btn-danger" value="Logout" />
@@ -193,6 +202,7 @@
 -->
 
 <script>
+
 
         function close_accordion_section(currentAttrValue, elem) {
             $(elem).removeClass('active');
