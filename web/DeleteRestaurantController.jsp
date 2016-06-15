@@ -10,20 +10,19 @@
 <%@ page import="java.sql.ResultSet" %>
     
 <%!
-    public boolean deleteDish(String restaurantName, String dishName) {
+    public boolean deleteRestaurant(String restaurantName) {
         try {
             Connection conn = happymeal.connection.ConnectionUtility.getConnection();
-            String selectionQuery = "select dname from dish where restaurant_id = (select id from Restaurant where rname = ?) and dname = ?";
-            PreparedStatement pss = conn.prepareStatement(selectionQuery);
-            pss.setString(1, restaurantName);
-            pss.setString(2, dishName);
-            ResultSet rss = pss.executeQuery();
-            if (!rss.last())
+            String selectionQuery = "select id from Restaurant where rname = ?";
+            PreparedStatement selectionPS = conn.prepareStatement(selectionQuery);
+            selectionPS.setString(1, restaurantName);
+            ResultSet selectionRS = selectionPS.executeQuery();
+            if (!selectionRS.last()) {
                 return false;
-            String deletionQuery = "delete from Dish where restaurant_id = (select id from Restaurant where rname = ?) and dname = ?";
+            }
+            String deletionQuery = "delete from Restaurant where rname = ?";
             PreparedStatement ps = conn.prepareStatement(deletionQuery);
             ps.setString(1, restaurantName);
-            ps.setString(2, dishName);
             ps.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -35,8 +34,7 @@
     
 <%
    String restName = request.getParameter("restaurantName");
-   String dishName = request.getParameter("dishName");
-   boolean deletionResult = deleteDish(restName, dishName);
+   boolean deletionResult = deleteRestaurant(restName);
    if (deletionResult) {
         out.print("Deletion successful");
    } else {

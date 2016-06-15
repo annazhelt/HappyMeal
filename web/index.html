@@ -80,6 +80,18 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
+        <h3 class="panel-title">Delete Restaurant Record</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-inline">
+            Restaurant Name: <input id="restaurantToDelete" type="text" placeholder="restaurant"/>
+            <button type="button" class="btn btn-primary" id="deleteRestBtn" onclick="deleteRestaurant()"> Delete Restaurant! </button>
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
         <h3 class="panel-title">Show All Restaurants!</h3>
     </div>
     <div class="panel-body">
@@ -367,9 +379,29 @@
             },
 
             success: function (result) {
-                alert ("deletion successful");
+                alert (result);
                 $("#restaurantName").val("");
                 $("#dishName").val("");
+            },
+            error: function() {
+                alert("Unable to delete");
+            }
+        });
+    }
+
+    function deleteRestaurant() {
+        var restName = $("#restaurantToDelete").val();
+        $.ajax ({
+            method: "POST",
+
+            url: "DeleteRestaurantController.jsp",
+            data: {
+                restaurantName: restName
+            },
+
+            success: function (result) {
+                alert (result);
+                $("#restaurantToDelete").val("");
             },
             error: function() {
                 alert("Unable to delete");
