@@ -13,6 +13,17 @@ public class Restaurant {
     private String phone;
     private List<Dish> dishes;
 
+    public Restaurant(){};
+
+    public Restaurant(int rid){
+        this.id = rid;
+    }
+
+    public Restaurant(String rname, String admin_name, String phone, String address) {
+
+    }
+
+
     public int getId() {
         return id;
     }

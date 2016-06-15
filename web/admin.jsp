@@ -97,6 +97,22 @@
     <input type="submit" value="Submit!" />
 </form>
 
+<form action="/newRestaurant" method="post" name="delete">
+    <input type="hidden" name="htmlFormName" value="delete"/>
+    <h1>Delete your  Old Restaurants</h1>
+    <div>
+        Choose Your Restaurant:
+        <select name="rid">
+        <%
+            for (Restaurant r: restaurants){
+                out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
+            }
+        %>
+        </select>
+        <input type="submit" value="Submit!" />
+    </div>
+</form>
+
 <form action="/logout" method="get">
     <input type="submit" class="btn btn-danger" value="Logout" />
 </form>

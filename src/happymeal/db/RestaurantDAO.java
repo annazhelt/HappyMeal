@@ -122,12 +122,12 @@ public class RestaurantDAO {
         try
         {
             connection =  ConnectionUtility.getConnection();
-            String sql = "delete from restaurant where rname=? and id=?";
+            String sql = "delete from restaurant where id=?";
             statement = connection.prepareStatement(sql);
-            String rname = restaurant.getRname();
+            //String rname = restaurant.getRname();
             int id = restaurant.getId();
-            statement.setString(1, rname);
-            statement.setInt(2, id);
+            //statement.setString(1, rname);
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e)
         {
