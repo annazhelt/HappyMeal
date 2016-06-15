@@ -63,62 +63,66 @@
         </div>
     </div>
         <br>
-    <div class="panel panel-default col-xs-6 col-sm-4">
-        <div class="panel-heading">
-            <h3 class="panel-title">Create a New Restaurant!</h3>
-        </div>
-        <div class="panel-body">
-            <form method="post" action="/newRestaurant">
-                <fieldset class="form-group">
-                    <label>Restaurant Name</label>
-                    <input type="text" class="form-control" name="name" size="36" maxlength="10" />
+    <div class="col-xs-6 col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create a New Restaurant!</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="/newRestaurant">
+                    <fieldset class="form-group">
+                        <label>Restaurant Name</label>
+                        <input type="text" class="form-control" name="name" size="36" maxlength="10" />
 
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>Restaurant Phone</label>
-                     <input type="tel" class="form-control" name="tel" size="36" maxlength="10"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Restaurant Phone</label>
+                         <input type="tel" class="form-control" name="tel" size="36" maxlength="10"/>
 
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>Restaurant Address</label>
-                    <input type="text" class="form-control" name="address" size="36" maxlength="200"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Restaurant Address</label>
+                        <input type="text" class="form-control" name="address" size="36" maxlength="200"/>
 
-                </fieldset>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                    </fieldset>
+                    <button type="submit" class="btn btn-primary">Submit</button>
 
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-    <div class="panel panel-default col-xs-6 col-sm-4">
-        <div class="panel-heading">
-            <h3 class="panel-title">Add Dishes To Your Restaurants!</h3>
-        </div>
-        <div class="panel-body">
-            <form method="post" action="/newDish">
-                <fieldset class="form-group">
-                    <label>Choose Your Restaurant </label>
-                    <select name="rid" class="form-control">
-                    <%
-                        for (Restaurant r: restaurants){
-                            out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
-                        }
-                    %>
-                    </select>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>
-                        Dish Name
-                    </label>
-                <input type="text" name="dname" size="36" maxLength="100" class="form-control"/>
-                </fieldset>
-                <fieldset class="form-group">
-                    <label>
-                        Price
-                    </label>
-                    <input type="text" name="price" size="36" class="form-control"/>
-                </fieldset>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+    <div class="col-xs-6 col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add Dishes To Your Restaurants!</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="/newDish">
+                    <fieldset class="form-group">
+                        <label>Choose Your Restaurant </label>
+                        <select name="rid" class="form-control">
+                        <%
+                            for (Restaurant r: restaurants){
+                                out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
+                            }
+                        %>
+                        </select>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>
+                            Dish Name
+                        </label>
+                    <input type="text" name="dname" size="36" maxLength="100" class="form-control"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>
+                            Price
+                        </label>
+                        <input type="text" name="price" size="36" class="form-control"/>
+                    </fieldset>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 <div class="col-xs-6 col-sm-4">
