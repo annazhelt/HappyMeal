@@ -76,23 +76,24 @@
                         <label>Restaurant Name</label>
                         <input type="text" class="form-control" name="name" size="36" maxlength="10" />
 
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label>Restaurant Phone</label>
-                         <input type="tel" class="form-control" name="tel" size="36" maxlength="10"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Restaurant Phone</label>
+                     <input type="tel" class="form-control" name="tel" size="36" maxlength="10"/>
 
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label>Restaurant Address</label>
-                        <input type="text" class="form-control" name="address" size="36" maxlength="200"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Restaurant Address</label>
+                    <input type="text" class="form-control" name="address" size="36" maxlength="200"/>
 
-                    </fieldset>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Submit</button>
 
                 </form>
             </div>
         </div>
     </div>
+
 <div class="col-xs-12 col-md-6 ">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -152,6 +153,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="col-xs-12 col-md-6">
     <div class="panel panel-default">
