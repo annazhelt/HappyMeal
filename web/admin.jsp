@@ -22,6 +22,12 @@
 
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <a class="navbar-brand" href="#">HappyMeal</a>
+    <form action="/logout" method="get" style="float: right; margin-top: 10px" class="form-inline">
+        <input type="submit" value="Logout" class="btn btn-default"/>
+    </form>
+</nav>
 <%
     RestaurantDAO rdao = new RestaurantDAO();
     DishDAO ddao = new DishDAO();
@@ -39,6 +45,7 @@
     }
 %>
 <div class="container">
+    <div class="col-xs-12 col-md-12">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">My Restaurants and Dishes</h3>
@@ -64,6 +71,7 @@
             </div>
         </div>
     </div>
+        </div>
         <br>
 
     <div class="col-xs-12 col-md-6">
@@ -184,12 +192,6 @@
 
     </div>
 
-
-
-
-    <form action="/logout" method="get">
-        <input type="submit" class="btn btn-danger" value="Logout" />
-    </form>
 </div>
 </body>
 
