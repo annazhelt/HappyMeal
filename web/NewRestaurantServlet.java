@@ -43,9 +43,9 @@ public class NewRestaurantServlet extends HttpServlet {
 
             HttpSession session = request.getSession(false);
             String admin = session.getAttribute("username").toString();
+            System.out.println(rname);
             r = new Restaurant(rname, admin, tel, address);
             rdao.create(r);
-
 
             request.setAttribute("message", "Successfully added your restaurant! Enjoy!");
             request.getRequestDispatcher("/admin.jsp").forward(request, response);
