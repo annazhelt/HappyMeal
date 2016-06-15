@@ -11,6 +11,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="happymeal.db.DishDAO" %>
 <%@ page import="happymeal.entity.Dish" %>
+<%@ page import="java.util.ArrayList" %>
 
 <html>
 <head>
@@ -19,14 +20,42 @@
     <link rel="stylesheet" href="/css/bootstrap.css"/>
 </head>
 <body>
-<div class="alert">
+<%
+    RestaurantDAO rdao = new RestaurantDAO();
+    DishDAO ddao = new DishDAO();
+    List<Restaurant> restaurants = rdao.findAllWithAdmin(session.getAttribute("username").toString());
+%>
+
 <%
     String message = (String) request.getAttribute("message");
     if (message != null) {
         out.println("<p>" + message + "</p>");
     }
 %>
+
+    <div>
+        <h1>My Restaurants and Dishes</h1>
+        <div id="accordion">
+        <%
+            for (Restaurant r: restaurants) {
+                //out.println("<div class='panel panel-default'>");
+                out.println("<div class='accordion-section'>");
+                String rname = r.getRname();
+                rname = rname.replaceAll("\\s","");
+                out.println("<a class='accordion-section-title' href='#"+rname+"'>"+r.getRname()+"</a>");
+
+                out.println("<div id='"+rname+"' class='accordion-section-content'>");
+
+                List<Dish> dishesByRes = ddao.findAllWithRID(r.getId());
+                for (Dish d : dishesByRes) {
+                    out.println("<p>" + d.getName() + " " + d.getPrice()+ "</p>");
+                }
+                out.println("</div></div>");
+            }
+        %>
+        </div>
     </div>
+    <br>
 <form method="post" action="/newRestaurant">
     <h1>Create a new Restaurant!</h1>
     <div>
@@ -47,15 +76,12 @@
     </div>
 
 </form>
-</body>
-
+<br>
 <form method="post" action="/newDish">
     <h1>Add Dishes To Your Restaurants!</h1>
     <div>
     Choose Your Restaurant: <select name="rid">
     <%
-        RestaurantDAO rdao = new RestaurantDAO();
-        List<Restaurant> restaurants = rdao.findAllWithAdmin(session.getAttribute("username").toString());
         for (Restaurant r: restaurants){
             out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
         }
@@ -70,11 +96,12 @@
     </div>
     <input type="submit" value="Submit!" />
 </form>
+    </body>
 
 <!--
 <div>
     <h3>My Dishes</h3>
-    <% DishDAO ddao = new DishDAO();
+    <%
         List<Dish> dishes = ddao.findAllWithAdmin(session.getAttribute("username").toString());
         for (Dish d: dishes) {
             out.println("<p>" +d.getName() + " " + d.getRestaurantID() + "</p>");
@@ -84,6 +111,32 @@
 -->
 
 <script>
+
+        function close_accordion_section(currentAttrValue, elem) {
+            $(elem).removeClass('active');
+            $(currentAttrValue).slideUp(300);
+            $(currentAttrValue).removeClass('open');
+        }
+
+        $('.accordion-section-title').click(function(e) {
+                    // Grab current anchor value
+                    var currentAttrValue = $(this).attr('href');
+
+                    if ($(e.target).is('.active')) {
+                        var elem= this;
+                        close_accordion_section(currentAttrValue, elem);
+                    } else {
+                        //close_accordion_section(currentAttrValue);
+                        // Add active class to section title
+                        $(this).addClass('active');
+                        // Open up the hidden content panel
+                        $(currentAttrValue).slideDown(300)
+                        $(currentAttrValue).addClass('open');
+                    }
+
+                    e.preventDefault()
+                }
+        );
 
 //    $(function() {
 //        $('form').submit(function() {

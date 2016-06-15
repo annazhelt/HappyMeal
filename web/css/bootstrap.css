@@ -4,6 +4,45 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+/*----- Accordion -----*/
+.accordion, .accordion * {
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+}
+
+.accordion {
+  overflow:hidden;
+  border-radius:3px;
+}
+
+/*----- Section Titles -----*/
+.accordion-section-title {
+  width:100%;
+  padding:15px;
+  display:inline-block;
+  border-bottom:1px solid #1a1a1a;
+  transition:all linear 0.15s;
+  /* Type */
+  font-size:1.200em;
+}
+
+.accordion-section-title.active, .accordion-section-title:hover {
+
+  /* Type */
+  text-decoration:none;
+}
+
+.accordion-section:last-child .accordion-section-title {
+  border-bottom:none;
+}
+
+/*----- Section Content -----*/
+.accordion-section-content {
+  padding: 15px;
+  display: none;
+}
+
 button.down {
   background: #bbb;
   border-top: solid 2px #777;
