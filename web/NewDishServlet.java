@@ -40,7 +40,8 @@ public class NewDishServlet extends HttpServlet {
             ddao.create(dish);
 
             request.setAttribute("message", "Successfully added dish to restaurant! Enjoy!");
-            request.getRequestDispatcher("/admin.jsp").forward(request, response);
+            response.sendRedirect("/admin.jsp");
+            //request.getRequestDispatcher("/admin.jsp").forward(request, response);
         }
 
     }

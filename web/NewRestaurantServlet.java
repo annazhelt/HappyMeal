@@ -33,7 +33,8 @@ public class NewRestaurantServlet extends HttpServlet {
             r = new Restaurant(id);
             rdao.delete(r);
             request.setAttribute("message", "Successfully deleted your restaurant! Enjoy!");
-            request.getRequestDispatcher("/admin.jsp").forward(request, response);
+            //request.getRequestDispatcher("/admin.jsp").forward(request, response);
+            response.sendRedirect("/admin.jsp");
 
         } else {
 
@@ -48,7 +49,8 @@ public class NewRestaurantServlet extends HttpServlet {
             rdao.create(r);
 
             request.setAttribute("message", "Successfully added your restaurant! Enjoy!");
-            request.getRequestDispatcher("/admin.jsp").forward(request, response);
+            //request.getRequestDispatcher("/admin.jsp").forward(request, response);
+            response.sendRedirect("/admin.jsp");
         }
 
 

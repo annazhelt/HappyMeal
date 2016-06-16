@@ -43,6 +43,7 @@ public class LoginServlet extends HttpServlet {
         {
             req.setAttribute("message", "Authentication failed.");
             jsp.forward(req, resp);
+            //resp.sendRedirect("/login.jsp");
             return;
         }
 
@@ -51,6 +52,7 @@ public class LoginServlet extends HttpServlet {
         {
             req.setAttribute("message", "Authentication failed.");
             jsp.forward(req, resp);
+            //resp.sendRedirect("/login.jsp");
             return;
         }
 

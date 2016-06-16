@@ -28,12 +28,17 @@ public class DishTagDAO {
         return dt;
     }
 
+    public List<DishTag> findAllWithRID(int rid){
+        String sql = "select * from dishtag where restaurant_id="+rid;
+        return doSelection(sql);
+    }
+
     public List<DishTag> findAllWithRIDandDish(int rid, String dname)
     {
         String sql = "select * from dishtag where restaurant_id="+rid+ " and dish_name = '" + dname +"'";
         return doSelection(sql);
     }
-    
+
 
     public List<DishTag> doSelection(String sql){
         LinkedList<DishTag> dts = new LinkedList<DishTag>();

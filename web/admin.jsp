@@ -15,6 +15,9 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="happymeal.db.TagDAO" %>
 <%@ page import="happymeal.entity.Tag" %>
+<%@ page import="happymeal.db.DishTagDAO" %>
+<%@ page import="happymeal.entity.DishTag" %>
+<%@ page import="java.util.LinkedList" %>
 
 <html>
 <head>
@@ -34,11 +37,16 @@
     RestaurantDAO rdao = new RestaurantDAO();
     DishDAO ddao = new DishDAO();
     TagDAO tdao = new TagDAO();
+    DishTagDAO dtdao = new DishTagDAO();
     List<Tag> tags = tdao.findAll();
     List<Restaurant> restaurants = rdao.findAllWithAdmin(session.getAttribute("username").toString());
     HashMap<Integer, List<Dish>> resDishes= new HashMap();
     for (Restaurant r : restaurants){
         resDishes.put(r.getId(), ddao.findAllWithRID(r.getId()));
+    }
+    List<DishTag> dts = new LinkedList<DishTag>();
+    for(Restaurant r: restaurants){
+        dts.addAll(dtdao.findAllWithRID(r.getId()));
     }
 %>
 
@@ -229,6 +237,41 @@
                     </fieldset>
 
                     <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Delete Tag From Dish</h3>
+            </div>
+            <div class="panel-body">
+                <form action="/dishTag" method="post">
+                    <input type="hidden" name="htmlFormName" value="delete"/>
+                    <fieldset class="form-group">
+                        <label>Choose the Dish And Tag</label>
+                        <select name="resAndDishAndTag" class="form-control">
+                            <%
+                                for (DishTag dt: dts){
+                                    int rid = dt.getRid();
+                                    Restaurant r = rdao.findById(rid);
+                                    String rname = "";
+                                    if (r != null){
+                                        rname = r.getRname();
+                                    }
+                                    String dname = dt.getDname();
+                                    String tname = dt.getTname();
+                                    String val = rid+","+dname+","+tname;
+                                    String text = rname+ " "+ " "+ dname + " "+ tname;
+                                    out.println("<option value="+val+">"+text+"</option>");
+                                }
+                            %>
+                        </select>
+                    </fieldset>
+                    <button type="submit" class="btn btn-warning">Submit</button>
                 </form>
             </div>
         </div>

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css"/>
 </head>
 <body>
-<body>
+
 <div class="container">
     <h1 class="page-header">HappyMeal Login</h1>
     <%
@@ -46,6 +46,6 @@
 </form>
         </div>
     </div>
-</html>
+
 </body>
 </html>

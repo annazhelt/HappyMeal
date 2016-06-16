@@ -41,8 +41,8 @@ public class RestaurantDAO {
     }
 
 
-    public List<Restaurant> findAllWithAdmin(String admin)
-    {
+    public List<Restaurant> doSelelctionQuery(String sql){
+
         LinkedList<Restaurant> restaurants = new LinkedList<Restaurant>();
         ResultSet rs = null;
         PreparedStatement statement = null;
@@ -50,9 +50,7 @@ public class RestaurantDAO {
         try
         {
             connection = ConnectionUtility.getConnection();
-            String sql = "select * from restaurant where admin_name=?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1,admin);
             rs = statement.executeQuery();
             while (rs.next())
             {
@@ -79,6 +77,22 @@ public class RestaurantDAO {
                 se.printStackTrace();
             }
         }
+    }
+
+    public List<Restaurant> findAllWithAdmin(String admin)
+    {
+        String sql = "select * from restaurant where admin_name='"+admin+"'";
+        return doSelelctionQuery(sql);
+    }
+
+    public Restaurant findById(int id){
+        String sql = "select * from restaurant where id="+id;
+        List<Restaurant> restaurants = doSelelctionQuery(sql);
+        Restaurant r = null;
+        for(Restaurant res: restaurants){
+            r = res;
+        }
+        return r;
     }
 
     public void create(Restaurant restaurant)
