@@ -83,17 +83,17 @@
                 <form method="post" action="/newRestaurant">
                     <fieldset class="form-group">
                         <label>Restaurant Name</label>
-                        <input type="text" class="form-control" name="name" size="36" maxlength="10" />
+                        <input type="text" class="form-control" name="name" id="rname" size="36" maxlength="10" required/>
 
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Restaurant Phone</label>
-                     <input type="tel" class="form-control" name="tel" size="36" maxlength="10"/>
+                     <input type="tel" class="form-control" name="tel" id="rtel" size="36" maxlength="10" pattern="\d{10}" required/>
 
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Restaurant Address</label>
-                    <input type="text" class="form-control" name="address" size="36" maxlength="200"/>
+                    <input type="text" class="form-control" name="address" id="raddress" size="36" maxlength="200" required/>
 
                 </fieldset>
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -112,7 +112,7 @@
             <form method="post" action="/newDish">
                 <fieldset class="form-group">
                     <label>Choose Your Restaurant </label>
-                    <select name="rid" class="form-control">
+                    <select name="rid" class="form-control" required>
                         <%
                             for (Restaurant r: restaurants){
                                 out.println("<option value=" + r.getId()+ ">"+r.getRname()+"</option>");
@@ -124,13 +124,13 @@
                     <label>
                         Dish Name
                     </label>
-                    <input type="text" name="dname" size="36" maxLength="100" class="form-control"/>
+                    <input type="text" name="dname" size="36" maxLength="100" class="form-control" required/>
                 </fieldset>
                 <fieldset class="form-group">
                     <label>
                         Price
                     </label>
-                    <input type="text" name="price" size="36" class="form-control"/>
+                    <input type="text" name="price" size="36" class="form-control" pattern="\d+\.?\d*" required/>
                 </fieldset>
                 <button type="submit" class="btn btn-warning">Submit</button>
             </form>
@@ -208,7 +208,6 @@
 -->
 
 <script>
-
 
         function close_accordion_section(currentAttrValue, elem) {
             $(elem).removeClass('active');
