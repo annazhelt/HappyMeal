@@ -13,6 +13,8 @@
 <%@ page import="happymeal.entity.Dish" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="happymeal.db.TagDAO" %>
+<%@ page import="happymeal.entity.Tag" %>
 
 <html>
 <head>
@@ -31,6 +33,8 @@
 <%
     RestaurantDAO rdao = new RestaurantDAO();
     DishDAO ddao = new DishDAO();
+    TagDAO tdao = new TagDAO();
+    List<Tag> tags = tdao.findAll();
     List<Restaurant> restaurants = rdao.findAllWithAdmin(session.getAttribute("username").toString());
     HashMap<Integer, List<Dish>> resDishes= new HashMap();
     for (Restaurant r : restaurants){
@@ -189,6 +193,45 @@
             </form>
         </div>
     </div>
+
+    </div>
+
+    <div class="col-xs-12 col-md-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add Tags to Dishes</h3>
+            </div>
+            <div class="panel-body">
+                <form action="/dishTag" method="post">
+                    <input type="hidden" name="htmlFormName" value="add"/>
+                    <fieldset class="form-group">
+                        <label>Choose the Dish </label>
+                        <select name="resAndDish" class="form-control">
+                            <%
+                                for (Restaurant r: restaurants){
+                                    for (Dish d: resDishes.get(r.getId())){
+                                        out.println("<option value=" + r.getId()+ "," + d.getName()+ ">"+
+                                                r.getRname()+ " " + d.getName()+"</option>");
+                                    }
+                                }
+                            %>
+                        </select>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Choose tag to add</label>
+                        <select name="tag" class="form-control">
+                            <%
+                                for(Tag t: tags){
+                                    out.println("<option value=" + t.getTname()+">" + t.getTname()+"</option>");
+                                }
+                            %>
+                        </select>
+                    </fieldset>
+
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
 
     </div>
 

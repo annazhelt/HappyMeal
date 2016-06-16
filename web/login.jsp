@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Login</title>
+    <script src="/js/jquery.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.css"/>
 </head>
 <body>

@@ -28,7 +28,7 @@ public class AuthFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             request.setAttribute("message", "Need to login!");
-            request.getRequestDispatcher("/login").forward(request, response);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
             //response.sendRedirect(loginURI);
         }
     }

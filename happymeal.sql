@@ -66,6 +66,7 @@ CREATE TABLE member (
         REFERENCES users (uname)
         ON DELETE CASCADE
 );
+
 insert into member values
     ('Anna-c', '50', '2016-05-31'),
 	('Valeria-c', '50', '2016-05-31'),
