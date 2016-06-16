@@ -28,7 +28,7 @@ public class AuthFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             String requestURI = request.getRequestURI();
-            if (requestURI.contains("login.jsp")) {
+            if (requestURI.contains("login.jsp") || requestURI.contains("/js/") || requestURI.contains("/css/")) {
                 chain.doFilter(request, response);
             } else {
                 request.setAttribute("message", "Need to login!");
