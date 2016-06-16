@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by anna on 2016-06-14.
  */
-@WebFilter("/index.html")
+@WebFilter("/*")
 public class AuthFilter implements Filter {
     public void destroy() {
     }
@@ -27,9 +27,13 @@ public class AuthFilter implements Filter {
         if (loggedIn || loginRequest) {
             chain.doFilter(request, response);
         } else {
-            request.setAttribute("message", "Need to login!");
-            //request.getRequestDispatcher("/login.jsp").forward(request, response);
-            response.sendRedirect(loginURI);
+            String requestURI = request.getRequestURI();
+            if (requestURI.contains("login.jsp")) {
+                chain.doFilter(request, response);
+            } else {
+                request.setAttribute("message", "Need to login!");
+                response.sendRedirect("login.jsp");
+            }
         }
     }
 

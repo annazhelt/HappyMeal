@@ -27,7 +27,7 @@ public class AdminFilter implements Filter {
             chain.doFilter(req, resp);
         } else {
             request.setAttribute("message","Need admin priveleges to view this page ");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            response.sendRedirect("login.jsp");
         }
     }
 
